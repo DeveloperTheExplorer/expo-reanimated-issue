@@ -12,7 +12,10 @@ export default function Nav() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Intro">
-                <Stack.Screen name="Intro" component={IntroScreen} />
+                <Stack.Screen 
+                    name="Intro" 
+                    component={IntroScreen} 
+                />
                 <Stack.Screen 
                     name="Tabs" 
                     component={TabNav} 
