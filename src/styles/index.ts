@@ -5,17 +5,19 @@ export const colors = {
     offWhite: '#EEEEEE',
     white: '#FFFFFF',
     black: '#111111',
-    state: {
-        error: '#FF3B3B',
-        warning: '#FFCC00',
-        info: '#0063F7',
-        success: '#06C270',
-    }
 };
 
+export const stateColors = {
+    error: '#FF3B3B',
+    warning: '#FFCC00',
+    info: '#0063F7',
+    success: '#06C270',
+}
+
 export const font = {
-    primary: 'Nagoda',
-    secondary: 'Karla',
+    headingType: 'Nagoda',
+    bodyType: 'Karla',
+    subHeadingType: 'Karla-Semibold',
     sizes: {
         h1: 48,
         h2: 36,
@@ -27,4 +29,19 @@ export const font = {
         body: 18,
         bodyLg: 20
     }
+};
+
+export const textTypeMap = {
+    h1: font.headingType,
+    h2: font.headingType,
+    h3: font.subHeadingType,
+    h4: font.subHeadingType,
+    h5: font.subHeadingType,
+    h6: font.subHeadingType,
+    bodySm: font.bodyType,
+    body: font.bodyType,
+    bodyLg: font.bodyType
 }
+
+export type TextVariants = keyof typeof font.sizes;
+export type ColorVaraints = keyof typeof colors;

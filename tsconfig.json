@@ -9,10 +9,14 @@
             ],
             "$/*": [
                 "./src/components/$pages/*"
-            ]
+            ],
+            "assets/*": [
+                "./assets/*"
+            ],
         },
     },
     "include": [
+        "declarations.d.ts",
         "src/**/*",
         "./App.tsx"
     ],

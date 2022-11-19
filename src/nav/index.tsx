@@ -8,13 +8,22 @@ import TabNav from './tabNav';
 
 const Stack = createNativeStackNavigator<AllScreensParamList>();
 
-export default function Nav() {
+interface Props {
+    onReady?: () => void
+}
+
+export default function Nav({ onReady }: Props) {
     return (
-        <NavigationContainer>
+        <NavigationContainer onReady={onReady}>
             <Stack.Navigator initialRouteName="Intro">
                 <Stack.Screen 
                     name="Intro" 
-                    component={IntroScreen} 
+                    component={IntroScreen}
+                    options={
+                        {
+                            header: () => <></>
+                        }
+                    }
                 />
                 <Stack.Screen 
                     name="Tabs" 
