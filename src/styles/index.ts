@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 
 export const colors = {
     primary: '#6726E9',
@@ -45,3 +46,12 @@ export const textTypeMap = {
 
 export type TextVariants = keyof typeof font.sizes;
 export type ColorVaraints = keyof typeof colors;
+
+export const s = StyleSheet.create({
+    alignCenter: {
+        alignItems: 'center'
+    },
+    justifyCenter: {
+        justifyContent: 'center'
+    },
+})

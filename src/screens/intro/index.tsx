@@ -8,22 +8,25 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import Carousel from 'react-native-reanimated-carousel';
 
-import Txt from '@/components/Txt';
 import Button from '@/components/Button';
 import { ScreenProps } from '@/types/screens';
 import Logo from 'assets/vectors/logo/vertical.svg';
-import { AuthSlide, authSlides } from '@/data/slides';
+import { authSlides } from '@/data/slides';
 
 import styles from './styles';
+import Slide from './slide';
+import Triangle from '@/components/Triangle';
+import { useEffect, useState } from 'react';
+import { s } from '@/styles';
 
 const window = Dimensions.get("window");
 
 
 export default function IntroScreen({ navigation }: ScreenProps<'Intro'>) {
-
+    const [slideIndex, setSlideIndex] = useState(0);
     
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
                 <StatusBar style="auto" />
                 <View>
@@ -32,58 +35,38 @@ export default function IntroScreen({ navigation }: ScreenProps<'Intro'>) {
                         height={ 69 }
                     />
                 </View>
-                <View>
+                <View
+                    style={ s.alignCenter }
+                >
                     <Carousel
-                        loop
+                        mode='parallax'
+                        loop={ false }
                         width={window.width}
                         height={window.height / 2}
                         data={authSlides}
                         scrollAnimationDuration={1000}
-                        onSnapToItem={(index) => console.log('current index:', index)}
-                        renderItem={
-                            ({ index, item }) => {
-                                const {
-                                    img,
-                                    title
-                                } = item;
-                                
-                                return (
-                                    <View
-                                        style={{
-                                            flex: 1,
-                                            borderWidth: 1,
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <Txt
-                                            light
-                                            center
-                                            variant='h4'
-                                        >
-                                            {title}
-                                        </Txt>
-
-                                        <Image 
-                                            source={img}
-                                        />
-                                    </View>
-                                )
-                            }
-                            
-                        }
+                        onScrollEnd={(index) => setSlideIndex(index)}
+                        defaultIndex={slideIndex}
+                        renderItem={Slide}
                     />
-                </View>
-                <View>
-                    <Txt 
-                        light
-                        center
-                        variant='h4'
+                    <View 
+                        style={ styles.slideTriangles }
                     >
-                        See what others are {'\n'}
-                        investing in
-                    </Txt>
-                </View>
-                <View>
+                        {
+                            authSlides.map(
+                                ({ title }, index) => {
+                                    const filled = slideIndex === index;
+
+                                    return (
+                                        <Triangle
+                                            key={ title }
+                                            filled={ filled }
+                                        />
+                                    )
+                                }
+                            )
+                        }
+                    </View>
                 </View>
 
                 <Button>
