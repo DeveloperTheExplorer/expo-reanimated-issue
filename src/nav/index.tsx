@@ -5,6 +5,8 @@ import HomeScreen from '@/screens/home';
 import IntroScreen from '@/screens/intro';
 import { AllScreensParamList } from '@/types/screens';
 import TabNav from './tabNav';
+import AuthScreen from '@/screens/auth';
+import TermsScreen from '@/screens/terms';
 
 const Stack = createNativeStackNavigator<AllScreensParamList>();
 
@@ -21,7 +23,25 @@ export default function Nav({ onReady }: Props) {
                     component={IntroScreen}
                     options={
                         {
-                            header: () => <></>
+                            headerShown: false,
+                        }
+                    }
+                />
+                <Stack.Screen 
+                    name="Auth" 
+                    component={AuthScreen}
+                    options={
+                        {
+                            headerShown: false,
+                        }
+                    }
+                />
+                <Stack.Screen 
+                    name="Terms" 
+                    component={TermsScreen}
+                    options={
+                        {
+                            headerShown: false,
                         }
                     }
                 />
@@ -30,7 +50,7 @@ export default function Nav({ onReady }: Props) {
                     component={TabNav} 
                     options={
                         {
-                            header: () => <></>
+                            headerShown: false,
                         }
                     }
                 />

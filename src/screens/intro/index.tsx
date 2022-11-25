@@ -26,8 +26,8 @@ export default function IntroScreen({ navigation }: ScreenProps<'Intro'>) {
     const [slideIndex, setSlideIndex] = useState(0);
     
     return (
-        <SafeAreaView style={styles.safeArea}>
-            <View style={styles.container}>
+        <SafeAreaView style={s.safeArea}>
+            <View style={s.container}>
                 <StatusBar style="auto" />
                 <View>
                     <Logo 
@@ -69,7 +69,11 @@ export default function IntroScreen({ navigation }: ScreenProps<'Intro'>) {
                     </View>
                 </View>
 
-                <Button>
+                <Button
+                    onPress={
+                        () => navigation.navigate('Auth')
+                    }
+                >
                     Continue
                 </Button>
             </View>

@@ -15,6 +15,14 @@ export const stateColors = {
     success: '#06C270',
 }
 
+export const fontColorMap = {
+    primary: colors.white,
+    secondary: colors.black,
+    offWhite: colors.primary,
+    white: colors.primary,
+    black: colors.white,
+}
+
 export const font = {
     headingType: 'Nagoda',
     bodyType: 'Karla',
@@ -35,7 +43,7 @@ export const font = {
 export const textTypeMap = {
     h1: font.headingType,
     h2: font.headingType,
-    h3: font.subHeadingType,
+    h3: font.headingType,
     h4: font.subHeadingType,
     h5: font.subHeadingType,
     h6: font.subHeadingType,
@@ -48,6 +56,16 @@ export type TextVariants = keyof typeof font.sizes;
 export type ColorVaraints = keyof typeof colors;
 
 export const s = StyleSheet.create({
+    safeArea: {
+        backgroundColor: '#fff',
+        flex: 1,
+    },
+    container: {
+        flex: 1,
+        padding: 42,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
     alignCenter: {
         alignItems: 'center'
     },

@@ -5,6 +5,7 @@ import { StyleProp,TextStyle, TouchableOpacity, TouchableOpacityProps } from 're
 
 import {
     colors,
+    fontColorMap,
     ColorVaraints
 } from '@/styles';
 import Txt from '../Txt';
@@ -17,6 +18,7 @@ interface Props extends TouchableOpacityProps {
 
 export default function Button({ children, variant, style, ...options }: Props) {
     const selectedVariant: ColorVaraints = variant || 'primary';
+    const fontColor = fontColorMap[selectedVariant];
 
     return (
         <TouchableOpacity
@@ -35,10 +37,9 @@ export default function Button({ children, variant, style, ...options }: Props) 
             }
             {...options}
         >
-
             <Txt 
                 bold 
-                color={colors.secondary}
+                color={fontColor}
             >
                 {children}
             </Txt>

@@ -1,16 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    safeArea: {
-        backgroundColor: '#fff',
-        flex: 1,
-    },
-    container: {
-        flex: 1,
-        padding: 42,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
     slide: {
         flex: 1,
         alignItems: 'center',
