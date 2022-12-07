@@ -1,24 +1,55 @@
 
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { 
     Image,
     SafeAreaView, 
-    View 
+    View
 } from 'react-native';
+import {
+    Text,
+    Button
+} from 'react-native-ui-lib';
 import { StatusBar } from 'expo-status-bar';
+import * as Linking from 'expo-linking';
 
 import { ScreenProps } from '@/types/screens';
-
 import Logo from 'assets/vectors/logo/vertical.svg';
 import MetaMaskIcon from 'assets/vectors/icons/metamask.svg';
-import Txt from '@/components/Txt';
 
 import { s } from '@/styles';
 import styles from './styles';
-import Button from '@/components/Button';
-import CustomButton from '@/components/CustomButton';
+import { userStore } from '@/hooks/useSession';
 
-export default function AuthScreen({ navigation }: ScreenProps<'Auth'>) {
+interface RouteParams {
+    token?: string;
+}
+
+const appPrefixURL = Linking.createURL('/', {})
+const metamaskLoginURL = `https://dreamworldnfts.com/_mintall?redirect_uri=${appPrefixURL}`;
+
+export default function AuthScreen({ navigation, route }: ScreenProps<'Auth'>) {
+    const { dispatch } = useContext(userStore);
+    const { path, params } = route;
+    const { token } = params!;
+
+    console.log('token', token);
+    console.log('path', path);
+    
+    const connect = async () => {
+        return dispatch(
+            {
+                type: 'LOGIN'
+            }
+        );
+        
+        const isValidURL = await Linking.canOpenURL(metamaskLoginURL);
+
+        console.log('isValidURL', isValidURL);
+        console.log('metamaskLoginURL', metamaskLoginURL);
+        
+        await Linking.openURL(metamaskLoginURL);
+    }
+    
     return (
         <SafeAreaView style={s.safeArea}>
             <View style={s.container}>
@@ -30,14 +61,15 @@ export default function AuthScreen({ navigation }: ScreenProps<'Auth'>) {
                     />
                 </View>
                 <View>
-                    <Txt 
+                    <Text 
+                        h4
                         center 
                         light
-                        variant='h4' 
-                        style={styles.header}
+                        fgColor
+                        marginB-42
                     >
                         Join the community and connect with others!
-                    </Txt>
+                    </Text>
 
                     <Image
                         source={
@@ -46,38 +78,45 @@ export default function AuthScreen({ navigation }: ScreenProps<'Auth'>) {
                     />
                 </View>
                 <View style={styles.buttonsContainer}>
-                    <CustomButton 
-                        variant='black'
-                        style={styles.customButton}
+                    <Button 
+                        bg-fgColor
+                        spread
+                        paddingH-32
+                        onPress={connect}
                     >
-                        <Txt color={'white'} bold>
+                        <Text bgColor bold>
                             Login with Metamask
-                        </Txt>
+                        </Text>
                         <MetaMaskIcon 
                             width={28}
                             height={26}
                         />
-                    </CustomButton>
-                    <CustomButton 
-                        variant='primary'
-                        style={styles.customButton}
+                    </Button>
+                    <Button 
+                        bg-primary
+                        spread
+                        marginT-12
+                        paddingH-32
+                        onPress={connect}
                     >
-                        <Txt color={'white'} bold>
+                        <Text bgColor bold>
                             Register with Metamask
-                        </Txt>
+                        </Text>
                         <MetaMaskIcon
                             width={28}
                             height={26}
                         />
-                    </CustomButton>
+                    </Button>
 
                     <Button 
+                        bg-bgColor
                         onPress={
                             () => navigation.navigate('Terms')
                         }
-                        variant='white'
                     >
-                        View Terms of Use
+                        <Text primary bold>
+                            View Terms of Use
+                        </Text>
                     </Button>
                 </View>
             </View>

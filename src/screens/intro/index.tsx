@@ -5,10 +5,13 @@ import {
     SafeAreaView,
     Dimensions
 } from 'react-native';
+import {
+    Button,
+    Text
+} from 'react-native-ui-lib'
 import { StatusBar } from 'expo-status-bar';
 import Carousel from 'react-native-reanimated-carousel';
 
-import Button from '@/components/Button';
 import { ScreenProps } from '@/types/screens';
 import Logo from 'assets/vectors/logo/vertical.svg';
 import { authSlides } from '@/data/slides';
@@ -70,12 +73,13 @@ export default function IntroScreen({ navigation }: ScreenProps<'Intro'>) {
                 </View>
 
                 <Button
+                    bgColor
+                    bold
                     onPress={
                         () => navigation.navigate('Auth')
                     }
-                >
-                    Continue
-                </Button>
+                    label='Continue'
+                />
             </View>
         </SafeAreaView>
     );

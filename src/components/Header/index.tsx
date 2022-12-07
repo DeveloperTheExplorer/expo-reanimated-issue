@@ -1,10 +1,12 @@
 
 import React from 'react';
 import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { 
+    Text
+} from 'react-native-ui-lib';
 import { Ionicons } from '@expo/vector-icons';
 
 import { ScreenProps } from '@/types/screens';
-import Txt from '@/components/Txt';
 
 import styles from './styles';
 
@@ -47,11 +49,11 @@ export default function Header({
                     color="black" 
                 />
             </TouchableOpacity>
-            <Txt
-                variant='h4'
+            <Text
+                h4
             >
-                {!float && title}
-            </Txt>
+                {!float ? title : ''}
+            </Text>
 
             <View
                 style={ children ? btnStyles : styles.headerBtn }

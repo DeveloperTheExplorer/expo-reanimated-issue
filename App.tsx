@@ -4,6 +4,8 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 import Nav from '@/nav';
+import { UserSessionProvider } from '@/hooks/useSession';
+import { loadDefaultStyles } from '@/styles';
 
 
 function App() {
@@ -15,7 +17,8 @@ function App() {
 
     useEffect(
         () => {
-           async function prepare() {
+            loadDefaultStyles()
+            async function prepare() {
                 await SplashScreen.preventAutoHideAsync();
             }
             prepare();
@@ -37,9 +40,11 @@ function App() {
     }
 
     return (
-        <Nav 
-            onReady={onLayoutRootView}
-        />
+        <UserSessionProvider>
+            <Nav 
+                onReady={onLayoutRootView}
+            />
+        </UserSessionProvider>
     );
 }
 

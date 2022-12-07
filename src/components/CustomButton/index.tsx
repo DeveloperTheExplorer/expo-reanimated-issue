@@ -1,5 +1,5 @@
 
-import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { StyleProp, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native';
 
 import {
     colors,
@@ -8,7 +8,7 @@ import {
 
 interface Props extends TouchableOpacityProps {
     children: React.ReactNode;
-    style?: StyleProp<TextStyle>;
+    style?: StyleProp<ViewStyle>;
     variant?: ColorVaraints;
 }
 

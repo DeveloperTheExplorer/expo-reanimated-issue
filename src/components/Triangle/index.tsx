@@ -26,7 +26,6 @@ export default function Triangle({ style, filled, color, strokeWidth }: Props) {
     const strkWidth = strokeWidth || 2;
     const translateValue = filled ? 0 : 25
     const translate = useSharedValue(translateValue);
-    
     const animatedStyle = useAnimatedStyle(
         () => {
             return {

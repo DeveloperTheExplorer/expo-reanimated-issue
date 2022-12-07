@@ -27,6 +27,11 @@ export default StyleSheet.create({
     'tabBar-icon-container-active': {
         backgroundColor: `${colors.primary}a0`
     },
+    'tabBar-avatar': {
+        height: 42,
+        width: 42,
+        borderRadius: 50
+    },
     'tabBar-text': {
         fontFamily: 'Nunito-Bold',
         color: '#222222',

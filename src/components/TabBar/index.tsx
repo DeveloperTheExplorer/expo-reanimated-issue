@@ -1,16 +1,18 @@
-import React, { useMemo } from 'react';
-import { View, Text, TouchableOpacity } from "react-native";
+import React, { useContext, useMemo } from 'react';
+import { View, Image, TouchableOpacity } from "react-native";
 
 import { Ionicons } from '@expo/vector-icons'; 
 // SVG ICONS
 
 import styles from './styles';
+import { userStore } from '@/hooks/useSession';
 
 interface IconMapType {
     [key: string]: string
 }
 
 export default function TabBar({ state, descriptors, navigation }: any) {
+    const { user } = useContext(userStore);
     const focusedOptions = descriptors[state.routes[state.index].key].options;
     const iconMapping: IconMapType = useMemo(
         () => {
@@ -34,13 +36,26 @@ export default function TabBar({ state, descriptors, navigation }: any) {
                 state.routes.map(
                     (route: any, index: Number) => {
                         const { options } = descriptors[route.key];
-                        // const label = options.tabBarLabel !== undefined
-                        //     ? options.tabBarLabel
-                        //     : options.title !== undefined
-                        //         ? options.title
-                        //         : route.name;
                         const isFocused = state.index === index;
                         const routeIcon = iconMapping[route.name];
+                        const RoutElement = route.name === 'Profile' ? (
+                            <>
+                                <Image
+                                    style={styles['tabBar-avatar']}
+                                    source={
+                                        {
+                                            uri: user!.avatar
+                                        }
+                                    }
+                                />
+                            </>
+                        ) : (
+                            <Ionicons 
+                                name={routeIcon as any} 
+                                size={24} 
+                                color={isFocused ? 'white' : 'black'} 
+                            />
+                        )
 
                         const onPress = () => {
                             const event = navigation.emit(
@@ -65,9 +80,11 @@ export default function TabBar({ state, descriptors, navigation }: any) {
                             )
                         };
 
+                        
+
                         return (
                             <TouchableOpacity
-                            key={`nav-item-${route.name}`}
+                                key={`nav-item-${route.name}`}
                                 accessibilityRole="button"
                                 accessibilityState={isFocused ? { selected: true } : {}}
                                 accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -84,11 +101,9 @@ export default function TabBar({ state, descriptors, navigation }: any) {
                                         ]
                                     }
                                 >
-                                    <Ionicons 
-                                        name={routeIcon as any} 
-                                        size={24} 
-                                        color={isFocused ? 'white' : 'black'} 
-                                    />
+                                    {
+                                        RoutElement
+                                    }
                                 </View>
                             </TouchableOpacity>
                         )

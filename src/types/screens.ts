@@ -32,7 +32,9 @@ export type AllScreensParamList = {
 
     // Non Tabs
     Intro: undefined;
-    Auth: undefined;
+    Auth?: {
+        token?: string
+    };
     Terms: undefined;
 
 };

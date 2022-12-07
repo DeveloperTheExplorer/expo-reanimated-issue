@@ -1,7 +1,9 @@
 import React from 'react';
 import { Image, View } from 'react-native';
+import {
+    Text
+} from 'react-native-ui-lib';
 
-import Txt from '@/components/Txt';
 import { AuthSlide } from '@/data/slides';
 import styles from './styles';
 
@@ -21,14 +23,14 @@ export default function Slide({ item }: Props) {
         <View
             style={styles.slide}
         >
-            <Txt
+            <Text
+                h3
                 light
                 center
-                variant='h4'
                 style={styles.slideText}
             >
                 {title}
-            </Txt>
+            </Text>
 
             <Image
                 source={img}
