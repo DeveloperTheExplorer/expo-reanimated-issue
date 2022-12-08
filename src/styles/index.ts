@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Typography, Colors, Spacings, ThemeManager, ButtonProps } from 'react-native-ui-lib';
+import { Typography, Colors, Spacings, ThemeManager, ButtonProps, ViewProps } from 'react-native-ui-lib';
 import constants from '@/data/constants';
 
 export const s = StyleSheet.create({
@@ -21,13 +21,6 @@ export const s = StyleSheet.create({
     },
 })
 
-export const colors = {
-    primary: '#6726E9',
-    secondary: '#C0EB00',
-    offWhite: '#EEEEEE',
-    white: '#FFFFFF',
-    black: '#111111',
-};
 
 export type ColorVaraints = keyof typeof colors;
 
@@ -38,32 +31,26 @@ export const stateColors = {
     success: '#06C270',
 }
 
+export const colors = {
+    primary: '#6726E9',
+    secondary: '#C0EB00',
+    offWhite: '#EEEEEE',
+    white: Colors.rgba(255, 255, 255, 1),
+    black: '#111111',
+    ...stateColors
+};
+
+Colors.loadColors(colors);
 Colors.loadSchemes({
     light: {
         bgColor: colors.white,
         fgColor: colors.black,
-        primary: colors.primary,
-        secondary: colors.secondary,
-        offWhite: colors.offWhite,
-        moonOrSun: Colors.yellow30,
-        
-        error: stateColors.error,
-        warning: stateColors.warning,
-        info: stateColors.info,
-        success: stateColors.success,
+        moonOrSun: Colors.grey30,
     },
     dark: {
         bgColor: colors.black,
         fgColor: colors.offWhite,
-        primary: colors.primary,
-        secondary: colors.secondary,
-        offWhite: colors.offWhite,
         moonOrSun: Colors.yellow30,
-
-        error: stateColors.error,
-        warning: stateColors.warning,
-        info: stateColors.info,
-        success: stateColors.success,
     }
 });
 
@@ -124,7 +111,8 @@ export const loadDefaultStyles = () => {
     });
     
     ThemeManager.setComponentTheme('Text', {
-        body: true
+        body: true,
+        fgColor: true
     });
     
     ThemeManager.setComponentTheme('Button', (props: ButtonProps) => {
@@ -139,6 +127,15 @@ export const loadDefaultStyles = () => {
             'paddingV-16': true,
             'bg-primary': true,
             borderRadius: 5
+        }
+    });
+
+    ThemeManager.setComponentTheme('View', (props: any) => {
+
+        return {
+            style: {
+                width: props['w-full'] ? '100%' : 'auto'
+            },
         }
     });
 }

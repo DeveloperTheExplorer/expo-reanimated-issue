@@ -9,6 +9,7 @@ import AuthScreen from '@/screens/auth';
 import TermsScreen from '@/screens/terms';
 import { useContext } from 'react';
 import { userStore } from '@/hooks/useSession';
+import OnboardingScreen from '@/screens/onboarding';
 
 const Stack = createNativeStackNavigator<AllScreensParamList>();
 const prefix = Linking.createURL('/', {})
@@ -45,6 +46,11 @@ export default function Nav({ onReady }: Props) {
                 {
                     user ? (
                         <>
+                            <Stack.Screen
+                                name="Onboarding"
+                                component={OnboardingScreen}
+                                options={defaultScreenOptions}
+                            />
                             <Stack.Screen
                                 name="Tabs"
                                 component={TabNav}

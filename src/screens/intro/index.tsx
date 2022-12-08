@@ -1,13 +1,13 @@
 
+import { useEffect, useState } from 'react';
 import { 
-    View, 
     Image,
     SafeAreaView,
     Dimensions
 } from 'react-native';
 import {
     Button,
-    Text
+    View
 } from 'react-native-ui-lib'
 import { StatusBar } from 'expo-status-bar';
 import Carousel from 'react-native-reanimated-carousel';
@@ -19,7 +19,6 @@ import { authSlides } from '@/data/slides';
 import styles from './styles';
 import Slide from './slide';
 import Triangle from '@/components/Triangle';
-import { useEffect, useState } from 'react';
 import { s } from '@/styles';
 
 const window = Dimensions.get("window");

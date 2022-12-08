@@ -1,5 +1,5 @@
+require('react-native-ui-lib/config').setConfig({ appScheme: 'default' });
 import { useCallback, useEffect } from 'react';
-import { View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 

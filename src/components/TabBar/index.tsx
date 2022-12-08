@@ -38,6 +38,15 @@ export default function TabBar({ state, descriptors, navigation }: any) {
                         const { options } = descriptors[route.key];
                         const isFocused = state.index === index;
                         const routeIcon = iconMapping[route.name];
+                        
+                        if (!routeIcon) {
+                            return (
+                                <React.Fragment
+                                    key={`nav-item-${route.name}`}
+                                />
+                            );
+                        }
+
                         const RoutElement = route.name === 'Profile' ? (
                             <>
                                 <Image
