@@ -29,6 +29,14 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "mintall"
+    "scheme": "mintall",
+    "plugins": [
+        [
+          "expo-image-picker",
+          {
+            "photosPermission": "Access is to photos is needed so upload images to Mintall."
+          }
+        ]
+    ]
   }
 }

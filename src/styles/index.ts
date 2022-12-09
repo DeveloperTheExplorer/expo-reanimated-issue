@@ -131,11 +131,23 @@ export const loadDefaultStyles = () => {
     });
 
     ThemeManager.setComponentTheme('View', (props: any) => {
+        let borderRadius = 0
+
+        if (props['rounded-sm']) {
+            borderRadius = 3;
+        }
+
+        if (props['rounded-md']) {
+            borderRadius = 5;
+        }
+
+        if (props['rounded-lg']) {
+            borderRadius = 10;
+        }
 
         return {
-            style: {
-                width: props['w-full'] ? '100%' : 'auto'
-            },
+            width: props['w-full'] ? '100%' : 'auto',
+            borderRadius
         }
     });
 }

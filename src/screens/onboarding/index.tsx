@@ -6,19 +6,13 @@ import {
     View,
     Text,
     Button,
-    Wizard,
-    Carousel
+    Wizard
 } from 'react-native-ui-lib';
 import { StatusBar } from 'expo-status-bar';
 import Animated, { 
-    Layout,
     SequencedTransition,
     SlideInLeft,
     SlideOutLeft,
-    Transition, 
-    ZoomInLeft, 
-    ZoomOutLeft, 
-    ZoomOutRight 
 } from 'react-native-reanimated';
 
 import { ScreenProps } from '@/types/screens';
@@ -68,6 +62,7 @@ export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding
             <View paddingH-0 style={s.container}>
                 <StatusBar style="auto" />
                 <View
+                    flexG
                     centerH
                     paddingH-42
                 >
@@ -79,7 +74,7 @@ export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding
                         h4
                         marginT-24
                     >
-                        Let's get you setup!
+                        Let's get to know you!
                     </Text>
                     <Wizard 
                         containerStyle={styles.wizardContainer}
@@ -100,28 +95,37 @@ export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding
                             label={'Your Interests'} 
                         />
                     </Wizard>
-                
-                    <View
-                        marginT-24
-                    >
-                        {
-                            step === 0 && (
-                                <AboutStep userObj={user!} />
-                            )
-                        }
-                        {
-                            step === 1 && (
-                                <GoalsStep />
-                            )
-                        }
-                        {
-                            step === 2 && (
-                                <InterestsStep />
-                            )
-                        }
-                    </View>
 
+                    <View 
+                        row
+                    >
+                        <View
+                            marginT-24
+                            style={
+                                {
+                                    width: '100%'
+                                }
+                            }
+                        >
+                            {
+                                step === 0 && (
+                                    <AboutStep userObj={user!} />
+                                )
+                            }
+                            {
+                                step === 1 && (
+                                    <GoalsStep />
+                                )
+                            }
+                            {
+                                step === 2 && (
+                                    <InterestsStep />
+                                )
+                            }
+                        </View>
+                    </View>
                 </View>
+
                 <View
                     row
                     paddingH-42
