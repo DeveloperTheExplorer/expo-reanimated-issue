@@ -124,7 +124,6 @@ export const loadDefaultStyles = () => {
                 overflow: 'hidden',
                 justifyContent: props.spread ? 'space-between' : 'center'
             },
-            // centerV: true,
             'paddingV-16': true,
             'bg-primary': true,
             borderRadius: 5

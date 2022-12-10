@@ -2,13 +2,13 @@ import React, { useContext, useState } from 'react';
 import { 
     SafeAreaView
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import {
     View,
     Text,
     Button,
     Wizard
 } from 'react-native-ui-lib';
-import { StatusBar } from 'expo-status-bar';
 import Animated, { 
     SequencedTransition,
     SlideInLeft,
@@ -18,12 +18,12 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { ScreenProps } from '@/types/screens';
 import { userStore } from '@/hooks/useSession';
-import { s } from '@/styles';
-import Logo from 'assets/vectors/logo/vertical.svg';
 import AboutStep from './steps/about';
 import InterestsStep from './steps/interests';
 import GoalsStep from './steps/goals';
 
+import Logo from 'assets/vectors/logo/vertical.svg';
+import { s } from '@/styles';
 import styles from './styles';
 
 export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding'>) {
