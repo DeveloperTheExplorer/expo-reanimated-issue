@@ -37,7 +37,6 @@ interface Props {
 
 export default function InterestsStep({ }: Props) {
     const [selected, setSelected] = useState<string[]>([]);
-    const [other, setOther] = useState('');
 
     const handleSelect = (option: string) => {
         const selectedCopy = [...selected];
@@ -51,10 +50,6 @@ export default function InterestsStep({ }: Props) {
 
         selectedCopy.push(option);
         setSelected(selectedCopy);
-    }
-
-    const handleOtherTextField = (text: string) => {
-        setOther(text);
     }
 
     return (
