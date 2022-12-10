@@ -121,6 +121,7 @@ export const loadDefaultStyles = () => {
             style: {
                 flexDirection: 'row',
                 alignSelf: 'stretch',
+                overflow: 'hidden',
                 justifyContent: props.spread ? 'space-between' : 'center'
             },
             // centerV: true,
@@ -147,7 +148,8 @@ export const loadDefaultStyles = () => {
 
         return {
             width: props['w-full'] ? '100%' : 'auto',
-            borderRadius
+            flexWrap: props['flex-wrap'] ? 'wrap' : 'no-wrap',
+            borderRadius,
         }
     });
 }

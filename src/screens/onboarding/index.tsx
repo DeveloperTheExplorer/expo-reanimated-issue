@@ -14,6 +14,7 @@ import Animated, {
     SlideInLeft,
     SlideOutLeft,
 } from 'react-native-reanimated';
+import { AntDesign } from '@expo/vector-icons';
 
 import { ScreenProps } from '@/types/screens';
 import { userStore } from '@/hooks/useSession';
@@ -28,6 +29,7 @@ import styles from './styles';
 export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding'>) {
     const [step, setStep] = useState(0);
     const { user, dispatch } = useContext(userStore);
+    const isLastStep = step === 2;
 
     const logout = () => {
         dispatch(
@@ -65,6 +67,9 @@ export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding
                     flexG
                     centerH
                     paddingH-42
+                    style={{
+                        maxHeight: '70%'
+                    }}
                 >
                     <Logo
                         width={83}
@@ -118,7 +123,7 @@ export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding
                                 )
                             }
                             {
-                                step === 2 && (
+                                isLastStep && (
                                     <InterestsStep />
                                 )
                             }
@@ -165,8 +170,25 @@ export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding
                         <Button
                             flexG
                             onPress={() => goToStep(step + 1)}
-                            label='Continue'
-                        />
+                        >
+                            {
+                                isLastStep && (
+                                    <AntDesign 
+                                        name="checkcircle" 
+                                        size={24} 
+                                        color="white"
+                                    />
+                                )
+                            }
+                            <Text 
+                                marginL-12
+                                bgColor={!isLastStep}
+                                secondary={isLastStep}
+                                bold
+                            >
+                                {isLastStep ? 'Complete' : 'Continue'}
+                            </Text>
+                        </Button>
                     </Animated.View>
                 </View>
             </View>
