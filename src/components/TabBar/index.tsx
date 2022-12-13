@@ -6,14 +6,22 @@ import { Ionicons } from '@expo/vector-icons';
 
 import styles from './styles';
 import { userStore } from '@/hooks/useSession';
+import { Avatar } from 'react-native-ui-lib';
 
 interface IconMapType {
     [key: string]: string
 }
 
+interface Route {
+    key: string;
+    name: string;
+    params?: any;
+}
+
 export default function TabBar({ state, descriptors, navigation }: any) {
     const { user } = useContext(userStore);
     const focusedOptions = descriptors[state.routes[state.index].key].options;
+    const currentRoute: Route = state.routes[state.index];
     const iconMapping: IconMapType = useMemo(
         () => {
             return {
@@ -28,6 +36,10 @@ export default function TabBar({ state, descriptors, navigation }: any) {
 
     if (focusedOptions.tabBarVisible === false) {
         return null;
+    }
+
+    if (currentRoute.name === 'Profile' && currentRoute.params && currentRoute.params.userID) {
+        return <React.Fragment />
     }
 
     return (
@@ -49,8 +61,9 @@ export default function TabBar({ state, descriptors, navigation }: any) {
 
                         const RoutElement = route.name === 'Profile' ? (
                             <>
-                                <Image
-                                    style={styles['tabBar-avatar']}
+                                <Avatar
+                                    // style={styles['tabBar-avatar']}
+                                    size={ 40 }
                                     source={
                                         {
                                             uri: user!.avatar

@@ -16,12 +16,14 @@ interface Props extends NavigationProp {
     style?: StyleProp<ViewStyle>
     title?: string;
     float?: boolean;
+    hideBack?: boolean;
     children?: React.ReactNode;
 }
 
 export default function Header({ 
     children,
     float, 
+    hideBack,
     navigation, 
     title, 
     style,
@@ -37,18 +39,22 @@ export default function Header({
                 ]
             }
         >
-            <TouchableOpacity
-                style={ btnStyles }
-                onPress={
-                    () => navigation.goBack()
-                }
-            >
-                <Ionicons 
-                    name="arrow-back" 
-                    size={32} 
-                    color="black" 
-                />
-            </TouchableOpacity>
+            {
+                !hideBack && (
+                    <TouchableOpacity
+                        style={ btnStyles }
+                        onPress={
+                            () => navigation.goBack()
+                        }
+                    >
+                        <Ionicons 
+                            name="arrow-back" 
+                            size={32} 
+                            color="black" 
+                        />
+                    </TouchableOpacity>
+                )
+            }
             <Text
                 h4
             >

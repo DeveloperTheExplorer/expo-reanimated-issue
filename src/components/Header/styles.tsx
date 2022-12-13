@@ -6,11 +6,14 @@ import {
 export default StyleSheet.create(
     {
         container: {
+            width: '100%',
             flexDirection: 'row',
             justifyContent: 'space-between',
+            alignSelf: 'stretch',
             alignItems: 'center',
             paddingHorizontal: 32,
-            paddingTop: 8
+            paddingTop: 8,
+            zIndex: 99
         },
         headerText: {
 

@@ -28,7 +28,9 @@ export type AllScreensParamList = {
     Home: undefined;
     Search: undefined;
     Blog: undefined;
-    Profile: undefined;
+    Profile?: {
+        userID: string
+    };
 
     // Non Tabs
     Intro: undefined;

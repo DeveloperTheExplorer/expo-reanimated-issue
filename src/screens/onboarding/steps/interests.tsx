@@ -7,7 +7,6 @@ import {
     Text,
     TouchableOpacity
 } from 'react-native-ui-lib';
-import { TextField } from 'react-native-ui-lib/src/incubator';
 
 import { colors } from '@/styles';
 
