@@ -10,7 +10,7 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 
 import ImageSelector, { ImageFile } from '@/components/ImageSelector';
-import constants from '@/data/constants';
+import constants from '@/resources/data/constants';
 import { colors } from '@/styles';
 import { TextField } from 'react-native-ui-lib/src/incubator';
 import { User } from '@/types';

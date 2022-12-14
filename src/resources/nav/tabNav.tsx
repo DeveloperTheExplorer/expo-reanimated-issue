@@ -1,12 +1,13 @@
 
+import { useLayoutEffect } from 'react';
+import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import TabBar from '@/components/TabBar';
 import BlogScreen from '@/screens/blog';
 import HomeScreen from '@/screens/home';
 import ProfileScreen from '@/screens/profile';
 import SearchScreen from '@/screens/search';
 import { AllScreensParamList, ScreenProps } from '@/types/screens';
-import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useLayoutEffect } from 'react';
 
 
 const defaultScreenOptions: BottomTabNavigationOptions = {

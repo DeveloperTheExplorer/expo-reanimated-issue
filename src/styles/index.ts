@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Typography, Colors, Spacings, ThemeManager, ButtonProps, ViewProps } from 'react-native-ui-lib';
-import constants from '@/data/constants';
+import constants from '@/resources/data/constants';
 
 export const s = StyleSheet.create({
     safeArea: {
@@ -115,7 +115,7 @@ export const loadDefaultStyles = () => {
         fgColor: true
     });
     
-    ThemeManager.setComponentTheme('Button', (props: ButtonProps) => {
+    ThemeManager.setComponentTheme('Button', (props: any) => {
 
         return {
             style: {

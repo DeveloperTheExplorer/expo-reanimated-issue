@@ -10,6 +10,9 @@ export interface User {
 
 export interface Profile extends User {
     followerCount?: number;
-    subscribers?: number;
+    subscribersCount?: number;
     subscriptionEnabled?: boolean;
+    subscriptionPrice?: number;
+    isFollowing?: boolean;
+    isSubscribed?: boolean;
 }

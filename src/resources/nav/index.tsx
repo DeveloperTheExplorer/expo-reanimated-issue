@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import * as Linking from 'expo-linking';
@@ -7,7 +8,6 @@ import { AllScreensParamList } from '@/types/screens';
 import TabNav from './tabNav';
 import AuthScreen from '@/screens/auth';
 import TermsScreen from '@/screens/terms';
-import { useContext } from 'react';
 import { userStore } from '@/hooks/useSession';
 import OnboardingScreen from '@/screens/onboarding';
 

@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-import Nav from '@/nav';
+import Nav from '@/resources/nav';
 import { UserSessionProvider } from '@/hooks/useSession';
 import { loadDefaultStyles } from '@/styles';
 

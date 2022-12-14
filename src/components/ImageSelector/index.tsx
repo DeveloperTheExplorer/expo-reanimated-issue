@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { ImageEditor } from 'expo-image-editor';
 
-import constants from '@/data/constants';
+import constants from '@/resources/data/constants';
 
 interface CroppedImage {
     height: number;

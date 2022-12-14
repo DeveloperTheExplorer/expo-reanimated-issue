@@ -1,4 +1,4 @@
-import constants from '@/data/constants';
+import constants from '@/resources/data/constants';
 import React, { LegacyRef } from 'react';
 import { StyleSheet, Image, ImageStyle } from 'react-native';
 

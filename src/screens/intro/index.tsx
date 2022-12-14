@@ -14,7 +14,7 @@ import Carousel from 'react-native-reanimated-carousel';
 
 import { ScreenProps } from '@/types/screens';
 import Logo from 'assets/vectors/logo/vertical.svg';
-import { authSlides } from '@/data/slides';
+import { authSlides } from '@/resources/data/slides';
 
 import styles from './styles';
 import Slide from './slide';

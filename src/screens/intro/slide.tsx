@@ -4,7 +4,7 @@ import {
     Text
 } from 'react-native-ui-lib';
 
-import { AuthSlide } from '@/data/slides';
+import { AuthSlide } from '@/resources/data/slides';
 import styles from './styles';
 
 interface Props {

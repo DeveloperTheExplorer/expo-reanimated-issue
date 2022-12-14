@@ -11,9 +11,25 @@ import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Banner from '@/components/Profile/Banner';
 import styles from './styles';
-import constants from '@/data/constants';
+import constants from '@/resources/data/constants';
 import { Profile, User } from '@/types';
 import ProfileHeader from '@/components/Profile/Header';
+import { Colors, TabController, View } from 'react-native-ui-lib';
+import Portfolio from '@/components/Profile/Portfolio';
+import Activity from '@/components/Profile/Activity';
+import NFTs from '@/components/Profile/NFTs';
+
+const tabs = [
+    {
+        label: 'Portfolio'
+    },
+    {
+        label: 'Activity'
+    },
+    {
+        label: 'NFTs'
+    },
+]
 
 export default function ProfileScreen({ navigation, route }: ScreenProps<'Profile'>) {
     const { user, dispatch } = useContext(userStore);
@@ -34,13 +50,28 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
     const handleSettingsMenu = () => {
         console.log('pressed!');
     }
+
+    const getProfileData = async () => {
+        const profile: Profile = {
+            ...user!,
+            followerCount: 1234,
+            subscribersCount: 111,
+            subscriptionEnabled: true,
+            subscriptionPrice: 8.99,
+            isFollowing: false,
+            isSubscribed: false,
+        };
+
+        setProfile(profile);
+    }
     
     useEffect(
         () => {
-            if (isUser) {
+            if (profile && profile.followerCount) {
                 return;
             }
 
+            getProfileData()
         }, [isUser]
     )
 
@@ -78,14 +109,34 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
                         paddingTop: constants.screenWidth / 2
                     }
                 ]}
-                contentContainerStyle={[
-                    styles.main
-                ]}
+                contentContainerStyle={styles.main}
             >
                 <ProfileHeader 
                     profile={profile}
                     isUser={isUser}
                 />
+                <View marginT-24>
+                    <TabController
+                        asCarousel
+                        items={tabs}
+                        initialIndex={0}
+                    >
+                        <TabController.TabBar 
+                            enableShadow
+                        />
+                        <TabController.PageCarousel>
+                            <TabController.TabPage index={0}>
+                                <Portfolio />
+                            </TabController.TabPage>
+                            <TabController.TabPage index={1} lazy>
+                                <Activity />
+                            </TabController.TabPage>
+                            <TabController.TabPage index={2} lazy>
+                                <NFTs />
+                            </TabController.TabPage>
+                        </TabController.PageCarousel>
+                    </TabController>
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
