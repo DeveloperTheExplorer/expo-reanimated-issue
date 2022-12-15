@@ -51,11 +51,12 @@ const durations = [
     },
 ];
 
+const netWorthValues = new Array(6).fill(0).map(() => Math.random() * 100)
 const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
     datasets: [
         {
-            data: new Array(6).fill(0).map(() => Math.random() * 100),
+            data: netWorthValues,
             color: () => Colors.primary, // optional
             strokeWidth: 2 // optional
         }
@@ -66,7 +67,7 @@ const chartConfig: AbstractChartConfig = {
     backgroundGradientFrom: "#fff",
     backgroundGradientTo: "#fff",
     fillShadowGradientFrom: Colors.primary,
-    fillShadowGradientFromOpacity: 0.4,
+    fillShadowGradientFromOpacity: 0.3,
     fillShadowGradientTo: '#ffffff',
     fillShadowGradientToOpacity: 0,
     color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
@@ -78,6 +79,7 @@ export default function Portfolio({
 
 }: Props) {
     const today = dayjs().format('MMMM D YYYY');
+    const currentNetWorth = netWorthValues[netWorthValues.length - 1].toFixed(2);
 
     return (
         <View paddingV-24>
@@ -122,7 +124,7 @@ export default function Portfolio({
                         <View>
                             <View bg-primary paddingV-2 paddingH-4 rounded-md>
                                 <Text bgColor bodySm bold>
-                                    Current Value: 1,234 ETH
+                                    Current Value: {currentNetWorth} ETH
                                 </Text>
                             </View>
                             <Text 
@@ -150,12 +152,40 @@ export default function Portfolio({
                             paddingRight: 12,
                             paddingLeft: 0
                         }}
-                        getDotProps={
-                            () => ({
-                                r: 3
-                            })
-                        }
+                        withDots={false}
                     />
+                </View>
+
+                <View marginT-24>
+                    <Text h4 center>
+                        Performance Stats
+                    </Text>
+                    <View row spread marginT-20>
+                        <View center>
+                            <Text marginB-8 bodySm>
+                                NFTs bought
+                            </Text>
+                            <Text h4 primary>
+                                3.8K
+                            </Text>
+                        </View>
+                        <View center>
+                            <Text marginB-8 bodySm>
+                                Total profit
+                            </Text>
+                            <Text h4 primary>
+                                5.2 ETH
+                            </Text>
+                        </View>
+                        <View center>
+                            <Text marginB-8 bodySm>
+                                NFTs sold
+                            </Text>
+                            <Text h4 primary>
+                                1.2K
+                            </Text>
+                        </View>
+                    </View>
                 </View>
             </View>
         </View>

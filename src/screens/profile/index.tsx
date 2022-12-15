@@ -15,9 +15,9 @@ import constants from '@/resources/data/constants';
 import { Profile, User } from '@/types';
 import ProfileHeader from '@/components/Profile/Header';
 import { Colors, TabController, View } from 'react-native-ui-lib';
-import Portfolio from '@/components/Profile/Portfolio';
-import Activity from '@/components/Profile/Activity';
+import Portfolio from '@/components/Portfolio';
 import NFTs from '@/components/Profile/NFTs';
+import ActivityList from '@/components/ActivityList';
 
 const tabs = [
     {
@@ -129,7 +129,9 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
                                 <Portfolio />
                             </TabController.TabPage>
                             <TabController.TabPage index={1} lazy>
-                                <Activity />
+                                <ActivityList 
+                                    activities={[]}
+                                />
                             </TabController.TabPage>
                             <TabController.TabPage index={2} lazy>
                                 <NFTs />

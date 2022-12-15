@@ -1,3 +1,5 @@
+import { ChartData } from './activity';
+
 export interface User {
     id: string;
     username: string;
@@ -15,4 +17,11 @@ export interface Profile extends User {
     subscriptionPrice?: number;
     isFollowing?: boolean;
     isSubscribed?: boolean;
+}
+
+export interface Portfolio {
+    chartData: ChartData;
+    totalProfit: number;
+    nftsBought: number;
+    nftsSold: number;
 }
