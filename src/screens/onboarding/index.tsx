@@ -66,7 +66,7 @@ export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding
                 <View
                     flexG
                     centerH
-                    paddingH-42
+                    paddingH-32
                     style={{
                         maxHeight: '70%'
                     }}
@@ -133,7 +133,7 @@ export default function OnboardingScreen({ navigation }: ScreenProps<'Onboarding
 
                 <View
                     row
-                    paddingH-42
+                    paddingH-32
                     w-full
                 >
                     {

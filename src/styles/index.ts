@@ -147,7 +147,6 @@ export const loadDefaultStyles = () => {
 
         return {
             width: props['w-full'] ? '100%' : 'auto',
-            flexWrap: props['flex-wrap'] ? 'wrap' : 'no-wrap',
             borderRadius,
         }
     });

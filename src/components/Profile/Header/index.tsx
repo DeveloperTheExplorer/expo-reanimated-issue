@@ -38,7 +38,7 @@ export default function ProfileHeader({ profile, isUser }: Props) {
 
     return (
         <View
-            paddingH-42
+            paddingH-32
         >
             <View
                 row

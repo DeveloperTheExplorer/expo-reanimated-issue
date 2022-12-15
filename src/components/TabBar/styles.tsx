@@ -11,8 +11,10 @@ export default StyleSheet.create({
     },
     'tabBar-button': {
         flexGrow: 1,
-        paddingBottom: 40,
+        paddingBottom: 25,
         paddingTop: 10,
+        borderRadius: 25,
+        overflow: 'hidden',
         backgroundColor: colors.white,
         justifyContent: 'center',
         alignItems: 'center'
@@ -22,10 +24,12 @@ export default StyleSheet.create({
         height: 50,
         borderRadius: 25,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden'
     },
     'tabBar-icon-container-active': {
-        backgroundColor: `${colors.primary}a0`
+        backgroundColor: `${colors.primary}`,
+        overflow: 'hidden'
     },
     'tabBar-avatar': {
         height: 42,

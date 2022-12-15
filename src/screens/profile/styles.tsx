@@ -9,6 +9,7 @@ export default StyleSheet.create({
         right: 0,
         bottom: 0,
         backgroundColor: 'transparent',
+        overflow: 'visible',
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -16,11 +17,11 @@ export default StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-
         elevation: 5,
-
     },
     main: {
-        backgroundColor: Colors.bgColor
+        backgroundColor: Colors.bgColor,
+        paddingBottom: 200,
+        overflow: 'visible'
     }
 })

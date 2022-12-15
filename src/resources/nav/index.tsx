@@ -47,13 +47,13 @@ export default function Nav({ onReady }: Props) {
                     user ? (
                         <>
                             <Stack.Screen
-                                name="Onboarding"
-                                component={OnboardingScreen}
+                                name="Tabs"
+                                component={TabNav}
                                 options={defaultScreenOptions}
                             />
                             <Stack.Screen
-                                name="Tabs"
-                                component={TabNav}
+                                name="Onboarding"
+                                component={OnboardingScreen}
                                 options={defaultScreenOptions}
                             />
                         </>
