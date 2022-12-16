@@ -12,7 +12,7 @@ export default function ActivityList({
 }: Props) {
 
     return (
-        <View paddingV-24 paddingH-32>
+        <View paddingV-24>
             {
                 activities.map(
                     (activity, i) => {
@@ -29,6 +29,7 @@ export default function ActivityList({
 
                         return (
                             <Post 
+                                key={activity.id!}
                                 post={activity}
                             />
                         )

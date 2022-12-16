@@ -1,12 +1,15 @@
-import { formatNumber } from '@/resources/format';
+import { formatNumber, nFormatter } from '@/resources/format';
+import { ViewStyle } from 'react-native';
 import { Text, TouchableOpacity } from 'react-native-ui-lib';
 
 interface Props {
-    label: string | React.ReactNode;
+    label: React.ReactNode;
     value?: number;
     onPress?: () => void;
     bold?: boolean;
+    bodySm?: boolean;
     reverse?: boolean;
+    style?: ViewStyle;
 }
 
 export default function SocialStats({
@@ -14,7 +17,9 @@ export default function SocialStats({
     value,
     onPress,
     bold,
-    reverse
+    bodySm,
+    reverse,
+    style
 }: Props) {
 
     const labelNode = typeof label === 'string' ? (
@@ -22,17 +27,20 @@ export default function SocialStats({
             {label}
         </Text>
     ) : label;
-    const valueNode = value === undefined ? 0 : formatNumber(value);
+    const valueNode = value === undefined ? 0 : nFormatter(value);
 
     return (
         <TouchableOpacity
             row
+            centerV
             onPress={onPress}
+            style={style}
         >
             {
                 reverse && labelNode
             }
             <Text
+                bodySm={bodySm}
                 bold={bold}
                 marginR-6={!reverse}
                 marginL-6={reverse}

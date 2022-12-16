@@ -17,6 +17,12 @@ export interface PollOption {
     votes?: number;
 }
 
+export interface Author {
+    id: string;
+    username: string;
+    avatar: string;
+}
+
 export enum PostTypes {
     Post = 'Post',
     CollectionPost = 'CollectionPost',
@@ -30,11 +36,7 @@ export type ActivityTypes = PostTypes | TradeType;
 
 export interface BaseActivity {
     id?: string;
-    author: {
-        id: string;
-        username: string;
-        avatar: string;
-    };
+    author: Author;
     date: number;
 }
 
@@ -42,9 +44,9 @@ export interface TradeType extends BaseActivity {
     NFT: {
         collectionName: string;
         collectionAddress: string;
-        address: string;
+        tokenID: string;
         image: string;
-        edition: string;
+        name: string;
     };
     type: TradeTypes.BasicTrade;
 }
@@ -54,6 +56,10 @@ export interface BasePost extends BaseActivity {
     description: string;
     image?: string;
     type: PostTypes;
+    commentsCount: number;
+    likesCount: number;
+    comments?: string[];
+    isLiked: boolean;
 }
 
 export interface PostType extends BasePost {

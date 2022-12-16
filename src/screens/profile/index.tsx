@@ -18,6 +18,8 @@ import { Colors, TabController, View } from 'react-native-ui-lib';
 import Portfolio from '@/components/Portfolio';
 import NFTs from '@/components/Profile/NFTs';
 import ActivityList from '@/components/ActivityList';
+import { Activity } from '@/types/activity';
+import { createActivities } from '@/resources/dummy';
 
 const tabs = [
     {
@@ -33,6 +35,7 @@ const tabs = [
 
 export default function ProfileScreen({ navigation, route }: ScreenProps<'Profile'>) {
     const { user, dispatch } = useContext(userStore);
+    const [activities, setActivities] = useState<Activity[]>([])
     const { params } = route;
     const isUser = !params || !params.userID || params.userID === user?.id;
     const initialProfile = isUser && user || null;
@@ -64,6 +67,15 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
 
         setProfile(profile);
     }
+
+    const handleTabSelection = (index: number) => {
+        console.log('index', index);
+        if (index === 1 && activities.length === 0) {
+            const acts = createActivities(12);
+
+            setActivities(acts);
+        }
+    }
     
     useEffect(
         () => {
@@ -71,11 +83,9 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
                 return;
             }
 
-            getProfileData()
+            getProfileData();
         }, [isUser]
     )
-
-    console.log('profile', profile);
     
     return (
         <SafeAreaView style={s.safeArea}>
@@ -120,6 +130,7 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
                         asCarousel
                         items={tabs}
                         initialIndex={0}
+                        onChangeIndex={handleTabSelection}
                     >
                         <TabController.TabBar 
                             enableShadow
@@ -130,7 +141,7 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
                             </TabController.TabPage>
                             <TabController.TabPage index={1} lazy>
                                 <ActivityList 
-                                    activities={[]}
+                                    activities={activities}
                                 />
                             </TabController.TabPage>
                             <TabController.TabPage index={2} lazy>
