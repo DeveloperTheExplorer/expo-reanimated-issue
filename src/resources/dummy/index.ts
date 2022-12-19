@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-import { Author, BasePost, ChartData, CollectionPost, PortfolioPost, PostType, PostTypes, TradeType, TradeTypes } from '@/types/activity';
+import { Activity, Author, BasePost, ChartData, CollectionPost, PortfolioPost, PostType, PostTypes, TradeType, TradeTypes } from '@/types/activity';
 
 export const createTrade = (): TradeType => {
 
@@ -55,7 +55,9 @@ export const createAuthor = (): Author => {
     return {
         id: faker.random.alphaNumeric(8),
         username: faker.internet.userName().substring(0, 12),
-        avatar: faker.internet.avatar()
+        avatar: faker.internet.avatar(),
+        isFollowing: Math.random() < 0.5,
+        isSubscribed: Math.random() < 0.5,
     }
 }
 
@@ -87,7 +89,7 @@ export const createPortfolioPost = (): PortfolioPost => {
     }
 }
 
-export const createActivities = (count: number) => {
+export const createActivities = (count: number): Activity[] => {
     const funcs = [createTrade, createPost, createCollectionPost, createPortfolioPost];
 
     return new Array(count).fill(0).map(

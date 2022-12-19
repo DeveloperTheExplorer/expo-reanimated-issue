@@ -5,10 +5,12 @@ import Trade from '../Trade';
 
 interface Props {
     activities: Activity[];
+    toggleFollow: (userID: string, isFollowing: boolean) => void
 }
 
 export default function ActivityList({
-    activities
+    activities,
+    toggleFollow
 }: Props) {
 
     return (
@@ -31,6 +33,7 @@ export default function ActivityList({
                             <Post 
                                 key={activity.id!}
                                 post={activity}
+                                toggleFollow={toggleFollow}
                             />
                         )
                     }

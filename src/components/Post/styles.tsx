@@ -8,5 +8,8 @@ export default StyleSheet.create({
     },
     description: {
         width: '100%'
+    },
+    image: {
+        borderRadius: 10
     }
 })

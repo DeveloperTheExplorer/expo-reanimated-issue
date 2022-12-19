@@ -1,25 +1,24 @@
 
 import React, { useContext, useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView } from 'react-native';
+import { TabController, View, TouchableOpacity } from 'react-native-ui-lib';
+import { StatusBar } from 'expo-status-bar';
+import { Ionicons } from '@expo/vector-icons';
 
-import { ScreenProps } from '@/types/screens';
 import { userStore } from '@/hooks/useSession';
 import Header from '@/components/Header';
-import { StatusBar } from 'expo-status-bar';
-import { s } from '@/styles';
-import { SafeAreaView, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Banner from '@/components/Profile/Banner';
-import styles from './styles';
 import constants from '@/resources/data/constants';
-import { Profile, User } from '@/types';
 import ProfileHeader from '@/components/Profile/Header';
-import { Colors, TabController, View } from 'react-native-ui-lib';
 import Portfolio from '@/components/Portfolio';
 import NFTs from '@/components/Profile/NFTs';
 import ActivityList from '@/components/ActivityList';
-import { Activity } from '@/types/activity';
-import { createActivities } from '@/resources/dummy';
+import { useActivities } from '@/hooks/useActivities';
+import { ScreenProps } from '@/types/screens';
+import { Profile } from '@/types';
+
+import { s } from '@/styles';
+import styles from './styles';
 
 const tabs = [
     {
@@ -35,12 +34,14 @@ const tabs = [
 
 export default function ProfileScreen({ navigation, route }: ScreenProps<'Profile'>) {
     const { user, dispatch } = useContext(userStore);
-    const [activities, setActivities] = useState<Activity[]>([])
     const { params } = route;
     const isUser = !params || !params.userID || params.userID === user?.id;
+    const profileID = isUser ? user!.id : params.userID;
     const initialProfile = isUser && user || null;
-
-    const [profile, setProfile] = useState<Profile | null>(initialProfile);
+    const [profile, setProfile] = useState<Profile | null>(initialProfile);    
+    const { activities, initData, toggleFollow } = useActivities({
+        authorID: profileID
+    })
 
     const logout = () => {
         dispatch(
@@ -71,9 +72,9 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
     const handleTabSelection = (index: number) => {
         console.log('index', index);
         if (index === 1 && activities.length === 0) {
-            const acts = createActivities(12);
+            initData();
 
-            setActivities(acts);
+            return;
         }
     }
     
@@ -142,6 +143,7 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
                             <TabController.TabPage index={1} lazy>
                                 <ActivityList 
                                     activities={activities}
+                                    toggleFollow={toggleFollow}
                                 />
                             </TabController.TabPage>
                             <TabController.TabPage index={2} lazy>

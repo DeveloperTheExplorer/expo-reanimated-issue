@@ -21,6 +21,8 @@ export interface Author {
     id: string;
     username: string;
     avatar: string;
+    isFollowing?: boolean;
+    isSubscribed?: boolean;
 }
 
 export enum PostTypes {
@@ -60,6 +62,7 @@ export interface BasePost extends BaseActivity {
     likesCount: number;
     comments?: string[];
     isLiked: boolean;
+    isExclusive?: boolean;
 }
 
 export interface PostType extends BasePost {
