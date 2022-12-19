@@ -65,7 +65,7 @@ export default function Post({
                     </Text>
                 </View>
                 {
-                    isUser && (
+                    !isUser && (
                         <View row flexG right>
                             {
                                 author.isFollowing ? (
