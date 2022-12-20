@@ -30,7 +30,8 @@ export const createBasePost = (): BasePost => {
         date: Date.now(),
         isLiked: false,
         commentsCount: faker.datatype.number({ min: 5, max: 899 }),
-        likesCount: faker.datatype.number({ min: 50, max: 9855 })
+        likesCount: faker.datatype.number({ min: 50, max: 9855 }),
+        isExclusive: Math.random() < 0.5,
     }
 }
 

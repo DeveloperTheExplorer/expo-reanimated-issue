@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, Colors, Image, Text, View } from 'react-native-ui-lib';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
@@ -12,6 +12,7 @@ import styles from './styles';
 import { ago } from '@/resources/format';
 import SocialStats from '../SocialStats';
 import { userStore } from '@/hooks/useSession';
+import ExclusiveTeaser from '../ExclusiveTeaser';
 
 interface Props {
     post: PostActivity;
@@ -31,6 +32,7 @@ export default function Post({
         commentsCount,
         likesCount,
         isLiked,
+        isExclusive,
         date,
     } = post;
     const isUser = author.id === user?.id;
@@ -91,9 +93,17 @@ export default function Post({
                     )
                 }
             </View>
-            <View>
+            <View marginT-12>
+                {
+                    isExclusive && (
+                        <ExclusiveTeaser 
+                            userID={author.id}
+                            username={author.username}
+                        />
+                    )
+                }
                 <View flexS>
-                    <Text bold marginT-12>
+                    <Text bold>
                         {title}?
                     </Text>
                     <Text 
@@ -121,43 +131,68 @@ export default function Post({
                     }
                 </View>
             </View>
-            <View row centerV right marginT-12>
-                <SocialStats 
-                    reverse
-                    bodySm
-                    onPress={handleLike}
-                    label={
-                        liked ? (
+            <View row spread marginT-12>
+                <View>
+                    {
+                        isExclusive && (
+                            <View 
+                                bg-secondary
+                                rounded-md
+                                row
+                                paddingH-4
+                                paddingV-2
+                                center
+                            >
+                                <MaterialCommunityIcons 
+                                    name="crown-outline" 
+                                    size={24} 
+                                    color="black" 
+                                />
+                                <Text bodySm bold marginL-2>
+                                    EXCLUSIVE
+                                </Text>
+                            </View>
+                        )
+                    }
+                </View>
+                <View row centerV>
+                    <SocialStats 
+                        reverse
+                        bodySm
+                        onPress={handleLike}
+                        label={
+                            liked ? (
+                                <FontAwesome 
+                                    name="heart" 
+                                    size={20} 
+                                    color={Colors.red30} 
+                                />
+                            ) : (
+                                <FontAwesome 
+                                    name="heart-o" 
+                                    size={20} 
+                                    color="black" 
+                                />
+                            )
+                        }
+                        value={likesCount}
+                        style={{
+                            marginRight: 40
+                        }}
+                    />
+                    <SocialStats 
+                        reverse
+                        bodySm
+                        label={
                             <FontAwesome 
-                                name="heart" 
-                                size={20} 
-                                color={Colors.red30} 
-                            />
-                        ) : (
-                            <FontAwesome 
-                                name="heart-o" 
+                                name="comment-o" 
                                 size={20} 
                                 color="black" 
                             />
-                        )
-                    }
-                    value={likesCount}
-                    style={{
-                        marginRight: 40
-                    }}
-                />
-                <SocialStats 
-                    reverse
-                    bodySm
-                    label={
-                        <FontAwesome 
-                            name="comment-o" 
-                            size={20} 
-                            color="black" 
-                        />
-                    }
-                    value={commentsCount}
-                />
+                        }
+                        value={commentsCount}
+                    />
+                </View>
             </View>
         </View>
     );
