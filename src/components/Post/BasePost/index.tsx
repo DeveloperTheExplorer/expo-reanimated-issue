@@ -7,21 +7,23 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 import { PostActivity } from '@/types/activity';
-import Avatar from '../Avatar';
+import Avatar from '../../Avatar';
 import styles from './styles';
 import { ago } from '@/resources/format';
-import SocialStats from '../SocialStats';
+import SocialStats from '../../SocialStats';
 import { userStore } from '@/hooks/useSession';
-import ExclusiveTeaser from '../ExclusiveTeaser';
+import ExclusiveTeaser from '../../ExclusiveTeaser';
 
 interface Props {
     post: PostActivity;
-    toggleFollow: (userID: string, isFollowing: boolean) => void
+    toggleFollow: (userID: string, isFollowing: boolean) => void,
+    children?: React.ReactNode
 }
 
-export default function Post({
+export default function BasePost({
     post,
-    toggleFollow
+    toggleFollow,
+    children
 }: Props) {
     const { user } = useContext(userStore);
     const {
@@ -130,6 +132,7 @@ export default function Post({
                         )
                     }
                 </View>
+                { children }
             </View>
             <View row spread marginT-12>
                 <View>

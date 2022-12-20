@@ -62,3 +62,11 @@ export const nFormatter = (num: number, digits = 1) => {
         :
         '0';
 }
+
+export const countText = (text: string, number: number) => {
+    if (number === 1) {
+        return text;
+    }
+
+    return text + 's';
+}

@@ -69,22 +69,22 @@ export interface PostType extends BasePost {
     type: PostTypes.Post;
 }
 
-export interface CollectionPost extends BasePost {
+export interface CollectionPostType extends BasePost {
     collection: Collection;
     type: PostTypes.CollectionPost;
 }
 
-export interface PortfolioPost extends BasePost {
+export interface PortfolioPostType extends BasePost {
     portfolio: Portfolio;
     type: PostTypes.PortfolioPost;
 }
 
-export interface PollPost extends BasePost {
+export interface PollPostType extends BasePost {
     options: PollOption[];
     totalVotesCount?: number;
     userVote?: string;
-    type: PostTypes.PortfolioPost;
+    type: PostTypes.PollPost;
 }
 
-export type PostActivity = PostType | CollectionPost | PortfolioPost | PollPost
+export type PostActivity = PostType | CollectionPostType | PortfolioPostType | PollPostType
 export type Activity = TradeType | PostActivity;

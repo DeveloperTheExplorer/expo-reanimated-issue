@@ -1,7 +1,7 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import { TabController, View, TouchableOpacity } from 'react-native-ui-lib';
+import { TabController, View, TouchableOpacity, Button } from 'react-native-ui-lib';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -141,10 +141,16 @@ export default function ProfileScreen({ navigation, route }: ScreenProps<'Profil
                                 <Portfolio />
                             </TabController.TabPage>
                             <TabController.TabPage index={1} lazy>
-                                <ActivityList 
-                                    activities={activities}
-                                    toggleFollow={toggleFollow}
-                                />
+                                <View>
+                                    <Button 
+                                        label='Refresh'
+                                        onPress={initData}
+                                    />
+                                    <ActivityList 
+                                        activities={activities}
+                                        toggleFollow={toggleFollow}
+                                    />
+                                </View>
                             </TabController.TabPage>
                             <TabController.TabPage index={2} lazy>
                                 <NFTs />

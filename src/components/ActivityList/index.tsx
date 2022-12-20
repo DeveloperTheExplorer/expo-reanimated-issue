@@ -1,6 +1,7 @@
-import { Activity, ActivityTypes, TradeType, TradeTypes } from '@/types/activity';
+import { Activity, ActivityTypes, PostTypes, TradeType, TradeTypes } from '@/types/activity';
 import { Text, View } from 'react-native-ui-lib';
-import Post from '../Post';
+import BasePost from '../Post/BasePost';
+import PollPost from '../Post/PollPost';
 import Trade from '../Trade';
 
 interface Props {
@@ -18,6 +19,8 @@ export default function ActivityList({
             {
                 activities.map(
                     (activity, i) => {
+                        console.log('activity.type', activity.type);
+                        
                         if (activity.type === TradeTypes.BasicTrade) {
                             const trade = activity as TradeType;
                             
@@ -28,9 +31,19 @@ export default function ActivityList({
                                 />
                             )
                         }
+                        if (activity.type === PostTypes.PollPost) {
+
+                            return (
+                                <PollPost 
+                                    key={activity.id!}
+                                    post={activity} 
+                                    toggleFollow={toggleFollow}
+                                />
+                            )
+                        }
 
                         return (
-                            <Post 
+                            <BasePost 
                                 key={activity.id!}
                                 post={activity}
                                 toggleFollow={toggleFollow}

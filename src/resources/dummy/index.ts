@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-import { Activity, Author, BasePost, ChartData, CollectionPost, PortfolioPost, PostType, PostTypes, TradeType, TradeTypes } from '@/types/activity';
+import { Activity, Author, BasePost, ChartData, CollectionPostType, PollOption, PollPostType, PortfolioPostType, PostType, PostTypes, TradeType, TradeTypes } from '@/types/activity';
 
 export const createTrade = (): TradeType => {
 
@@ -24,14 +24,15 @@ export const createBasePost = (): BasePost => {
         id: faker.random.alphaNumeric(8),
         title: faker.random.words(),
         description: faker.hacker.phrase(),
-        image: faker.image.abstract(1600, 900),
+        image: Math.random() < 0.5 ? faker.image.abstract(1600, 900) : '',
         type: PostTypes.Post,
         author: createAuthor(),
         date: Date.now(),
         isLiked: false,
         commentsCount: faker.datatype.number({ min: 5, max: 899 }),
         likesCount: faker.datatype.number({ min: 50, max: 9855 }),
-        isExclusive: Math.random() < 0.5,
+        // isExclusive: Math.random() < 0.5,
+        isExclusive: false,
     }
 }
 
@@ -62,7 +63,7 @@ export const createAuthor = (): Author => {
     }
 }
 
-export const createCollectionPost = (): CollectionPost => {
+export const createCollectionPost = (): CollectionPostType => {
 
     return {
         ...createBasePost(),
@@ -76,7 +77,7 @@ export const createCollectionPost = (): CollectionPost => {
     }
 }
 
-export const createPortfolioPost = (): PortfolioPost => {
+export const createPortfolioPost = (): PortfolioPostType => {
 
     return {
         ...createBasePost(),
@@ -90,8 +91,30 @@ export const createPortfolioPost = (): PortfolioPost => {
     }
 }
 
+export const genereatePollOption = (): PollOption => {
+    return {
+        text: faker.random.words(),
+        votes: faker.datatype.number({ min: 5, max: 50 })
+    }
+}
+
+export const createPollPost = (): PollPostType => {
+    const options = new Array(4).fill(0).map(genereatePollOption);
+    const totalVotesCount = options.reduce(
+        (a, c) => a + c.votes!,
+        0
+    )
+
+    return {
+        ...createBasePost(),
+        type: PostTypes.PollPost,
+        options,
+        totalVotesCount
+    }
+}
+
 export const createActivities = (count: number): Activity[] => {
-    const funcs = [createTrade, createPost, createCollectionPost, createPortfolioPost];
+    const funcs = [createTrade, createPost, createCollectionPost, createPortfolioPost, createPollPost];
 
     return new Array(count).fill(0).map(
         () => funcs[faker.datatype.number({ max: funcs.length - 1 })]()

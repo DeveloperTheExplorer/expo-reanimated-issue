@@ -46,11 +46,13 @@ Colors.loadSchemes({
         bgColor: colors.white,
         fgColor: colors.black,
         moonOrSun: Colors.grey30,
+        ...stateColors,
     },
     dark: {
         bgColor: colors.black,
         fgColor: colors.offWhite,
         moonOrSun: Colors.yellow30,
+        ...stateColors,
     }
 });
 
