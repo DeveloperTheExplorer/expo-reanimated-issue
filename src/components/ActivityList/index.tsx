@@ -3,6 +3,7 @@ import { Text, View } from 'react-native-ui-lib';
 import BasePost from '../Post/BasePost';
 import CollectionPost from '../Post/CollectionPost';
 import PollPost from '../Post/PollPost';
+import PortfolioPost from '../Post/PortfolioPost';
 import Trade from '../Trade';
 
 interface Props {
@@ -45,6 +46,16 @@ export default function ActivityList({
 
                             return (
                                 <CollectionPost 
+                                    key={activity.id!}
+                                    post={activity} 
+                                    toggleFollow={toggleFollow}
+                                />
+                            )
+                        }
+                        if (activity.type === PostTypes.PortfolioPost) {
+
+                            return (
+                                <PortfolioPost 
                                     key={activity.id!}
                                     post={activity} 
                                     toggleFollow={toggleFollow}
