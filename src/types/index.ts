@@ -21,7 +21,7 @@ export interface Profile extends User {
 
 export interface Portfolio {
     chartData: ChartData;
-    // totalProfit: number;
-    // nftsBought: number;
-    // nftsSold: number;
+    totalProfit: number;
+    nftsBought: number;
+    nftsSold: number;
 }
