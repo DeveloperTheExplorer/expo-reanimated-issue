@@ -1,6 +1,7 @@
 import { Activity, ActivityTypes, PostTypes, TradeType, TradeTypes } from '@/types/activity';
 import { Text, View } from 'react-native-ui-lib';
 import BasePost from '../Post/BasePost';
+import CollectionPost from '../Post/CollectionPost';
 import PollPost from '../Post/PollPost';
 import Trade from '../Trade';
 
@@ -22,12 +23,11 @@ export default function ActivityList({
                         console.log('activity.type', activity.type);
                         
                         if (activity.type === TradeTypes.BasicTrade) {
-                            const trade = activity as TradeType;
                             
                             return (
                                 <Trade 
-                                    key={trade.id!}
-                                    trade={trade}
+                                    key={activity.id!}
+                                    trade={activity}
                                 />
                             )
                         }
@@ -35,6 +35,16 @@ export default function ActivityList({
 
                             return (
                                 <PollPost 
+                                    key={activity.id!}
+                                    post={activity} 
+                                    toggleFollow={toggleFollow}
+                                />
+                            )
+                        }
+                        if (activity.type === PostTypes.CollectionPost) {
+
+                            return (
+                                <CollectionPost 
                                     key={activity.id!}
                                     post={activity} 
                                     toggleFollow={toggleFollow}

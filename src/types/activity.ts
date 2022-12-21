@@ -8,6 +8,7 @@ export interface ChartData {
 export interface Collection {
     name: string;
     image: string;
+    openseaSlug: string;
     address: string;
     chartData: ChartData;
 }

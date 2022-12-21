@@ -70,6 +70,7 @@ export const createCollectionPost = (): CollectionPostType => {
         type: PostTypes.CollectionPost,
         collection: {
             name: faker.random.word(),
+            openseaSlug: faker.random.words().toLowerCase().replaceAll(' ', '-'),
             address: '0x' + faker.random.alphaNumeric(40),
             image: faker.image.abstract(256, 256),
             chartData: createChartData()
