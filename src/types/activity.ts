@@ -14,7 +14,7 @@ export interface Collection {
 
 export interface PollOption {
     text: string;
-    votes?: number;
+    votes: number;
 }
 
 export interface Author {
@@ -81,7 +81,7 @@ export interface PortfolioPostType extends BasePost {
 
 export interface PollPostType extends BasePost {
     options: PollOption[];
-    totalVotesCount?: number;
+    totalVotesCount: number;
     userVote?: string;
     type: PostTypes.PollPost;
 }

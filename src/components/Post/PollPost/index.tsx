@@ -1,11 +1,11 @@
-import { Button, Text, TouchableOpacity, View } from 'react-native-ui-lib';
+import { Button, Colors, Text, TouchableOpacity, View } from 'react-native-ui-lib';
 
 import { PollPostType } from '@/types/activity';
 import BasePost from '../BasePost';
 import styles from './styles';
 import { countText } from '@/resources/format';
-import { useState } from 'react';
-import { AntDesign } from '@expo/vector-icons';
+import { useMemo, useState } from 'react';
+import PollOption from './PollOption';
 
 
 interface Props {
@@ -22,11 +22,23 @@ export default function PollPost({
         totalVotesCount,
         userVote
     } = post;
-    const [votesCount, setVotesCount] = useState(totalVotesCount || 0);
+    const [votesCount, setVotesCount] = useState(totalVotesCount);
     const [voteOptions, setVoteOptions] = useState(options);
     const [newVote, setNewVote] = useState(userVote || '');
+    const [viewMode, setViewMode] = useState<'VOTE' | 'RESULTS'>(newVote !== '' ? 'RESULTS' : 'VOTE');
+    const sortedVoteOptions = useMemo(
+        () => {
+            const votesCopy = [...voteOptions];
+
+            votesCopy.sort(
+                (opA, opB) => opB.votes - opA.votes
+            );
+            return votesCopy;
+        }, [totalVotesCount]
+    )
 
     const handleVote = (text: string) => {
+        console.log('text', text);
         if (newVote !== '') {
             return;
         }
@@ -39,7 +51,7 @@ export default function PollPost({
 
                 return {
                     text: op.text,
-                    votes: (op.votes || 0) + 1
+                    votes: (op.votes) + 1
                 }
             }
         );
@@ -47,10 +59,13 @@ export default function PollPost({
         setVoteOptions(updatedOptions);
         setVotesCount(prev => prev + 1);
         setNewVote(text);
+        setViewMode('RESULTS');
     }
 
-    const revealResults = () => {
-        
+    const toggleResults = () => {
+        setViewMode(
+            prev => prev === 'RESULTS' ? 'VOTE' : 'RESULTS'
+        );
     }
     
     return (
@@ -68,43 +83,37 @@ export default function PollPost({
                     </Text>
                 </View>
                 {
-                    voteOptions.map(
+                    viewMode === 'VOTE' && voteOptions.map(
                         (op) => {
-                            const {
-                                text
-                            } = op;
-                            const isUserVote = newVote === text;
+                            const isSelected = op.text === newVote;
+
+                            return (
+                                <PollOption 
+                                    key={op.text}
+                                    pollOption={op}
+                                    totalVotesCount={totalVotesCount}
+                                    showResults={false}
+                                    isSelected={isSelected}
+                                    handleVote={handleVote}
+                                />
+                            )
+                        }
+                    )
+                }
+                {
+                    viewMode === 'RESULTS' && sortedVoteOptions.map(
+                        (op) => {
+                            const isSelected = op.text === newVote;
                             
                             return (
-                                <TouchableOpacity
-                                    row
-                                    marginT-12
-                                    key={text}
-                                    style={[
-                                        styles.option,
-                                        isUserVote && styles.activeOption
-                                    ]}
-                                    onPress={
-                                        () => handleVote(text)
-                                    }
-                                >
-                                    {
-                                        isUserVote && (
-                                            <View marginR-6>
-                                                <AntDesign 
-                                                    name="checkcircle" 
-                                                    size={24} 
-                                                    color="white" 
-                                                />
-                                            </View>
-                                        )
-                                    }
-                                    <Text
-                                        bgColor={isUserVote}
-                                    >
-                                        { text }
-                                    </Text>
-                                </TouchableOpacity>
+                                <PollOption 
+                                    key={op.text}
+                                    pollOption={op}
+                                    totalVotesCount={totalVotesCount}
+                                    showResults={true}
+                                    isSelected={isSelected}
+                                    handleVote={handleVote}
+                                />
                             )
                         }
                     )
@@ -113,8 +122,8 @@ export default function PollPost({
                     marginT-6
                     bg-bgColor
                     primary
-                    label='View Results'
-                    onPress={revealResults}
+                    label='Toggle Results'
+                    onPress={toggleResults}
                 />
             </View>
         </BasePost>
