@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 import { userStore } from '@/hooks/useSession';
 import { Avatar } from 'react-native-ui-lib';
+import NewPostFab from '../NewPostFab';
 
 interface IconMapType {
     [key: string]: string
@@ -44,6 +45,7 @@ export default function TabBar({ state, descriptors, navigation }: any) {
 
     return (
         <View style={styles["tabBar-container"]}>
+            <NewPostFab />
             {
                 state.routes.map(
                     (route: any, index: Number) => {

@@ -88,6 +88,9 @@ export const loadDefaultStyles = () => {
             fontSize: 16, 
             fontFamily: font.subHeadingType,
         },
+        bodyXS: {
+            fontSize: 10
+        },
         bodySm: {
             fontSize: 14,
             fontFamily: font.bodyType,
