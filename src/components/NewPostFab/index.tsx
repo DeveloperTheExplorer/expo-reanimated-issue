@@ -6,7 +6,7 @@ import Triangle from '../Triangle';
 import styles from './styles';
 
 interface Props {
-
+    onPress: () => void;
 }
 
 
@@ -15,127 +15,22 @@ const animConfig: WithTimingConfig = {
     easing: Easing.out(Easing.ease)
 };
 
-export default function NewPostFab({}: Props) {
-    const [isOpen, setIsOpen] = useState(false);
-    const fabAnimStyle = useAnimatedStyle(
-        () => {
-            return {
-                borderRadius: 30,
-                backgroundColor: withTiming(isOpen ? Colors.secondary : Colors.primary, animConfig),
-                transform: [
-                    {
-                        rotate: withTiming(isOpen ? '315deg' : '0deg', animConfig)
-                    }
-                ]
-            }
-        }
-    )
-
-    const toggleOpen = () => {
-        setIsOpen(prev => !prev);
-    }
+export default function NewPostFab({
+    onPress
+}: Props) {
     
     return (
-        <View 
-            style={styles.container}
+        <TouchableOpacity
+            center
+            bg-bgColor
+            style={styles.fab}
+            onPress={onPress}
         >
-            <Animated.View
-                style={[styles.fabContainer, fabAnimStyle]}
-            >
-                <TouchableOpacity
-                    center
-                    style={styles.fab}
-                    onPress={toggleOpen}
-                >
-                    <AntDesign 
-                        name="plus" 
-                        size={24} 
-                        color={isOpen ? Colors.fgColor : Colors.bgColor}
-                    />
-                </TouchableOpacity>
-            </Animated.View>
-            {
-                isOpen && (
-
-                    <Animated.View
-                        entering={FadeInDown}
-                        exiting={FadeOutDown}
-                        style={styles.popupContainer}
-                    >
-                        <TouchableOpacity
-                            padding-10
-                            bg-bgColor
-                            center
-                            style={styles.buttons}
-                        >
-                            <Image 
-                                style={styles.buttonImg}
-                                source={
-                                    require('assets/images/icons/Post.png')
-                                }
-                            />
-                            <Text bodyXS bold center>
-                                Create basic post
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            padding-10
-                            bg-bgColor
-                            center
-                            style={styles.buttons}
-                        >
-                            <Image 
-                                style={styles.buttonImg}
-                                source={
-                                    require('assets/images/icons/Chart.png')
-                                }
-                            />
-                            <Text bodyXS bold center>
-                                Share NFT Chart
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            padding-10
-                            bg-bgColor
-                            center
-                            style={styles.buttons}
-                        >
-                            <Image 
-                                style={styles.buttonImg}
-                                source={
-                                    require('assets/images/icons/PieChart.png')
-                                }
-                            />
-                            <Text bodyXS bold center>
-                                Share Portfolio
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            padding-10
-                            bg-bgColor
-                            center
-                            style={styles.buttons}
-                        >
-                            <Image 
-                                style={styles.buttonImg}
-                                source={
-                                    require('assets/images/icons/Poll.png')
-                                }
-                            />
-                            <Text bodyXS bold center>
-                                Create a Poll
-                            </Text>
-                        </TouchableOpacity>
-                        <View
-                            style={styles.popupTriangle}    
-                        >
-                            <Triangle
-                                filled
-                            />
-                        </View>
-                    </Animated.View>
-                )
-            }
-        </View>
+            <AntDesign 
+                name="plus" 
+                size={24} 
+                color={Colors.primary}
+            />
+        </TouchableOpacity>
     )
 }

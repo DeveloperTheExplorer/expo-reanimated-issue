@@ -4,7 +4,7 @@ import { createContext, useEffect, useReducer } from 'react';
 
 export type UserState = User | null;
 export interface UserStateActions {
-    type: 'PRELOAD' | 'LOGIN' | 'SET_IS_NEW' | 'LOGOUT';
+    type: 'PRELOAD' | 'LOGIN' | 'REGISTER' | 'SET_IS_NEW' | 'LOGOUT';
     payload?: any;
 }
 
@@ -25,7 +25,7 @@ const dummyUserData: User = {
     avatar: 'https://i.seadn.io/gcs/files/6ec07a2b1f88cce9587d031d2d557bcd.png?auto=format&w=256',
     banner: 'https://i.redd.it/0rklmwkorcs11.png',
     bio: 'A crypto-head, looking to find the next most innovative projects.',
-    isNew: true
+    isNew: false
 }
 
 const reducer = (state: UserState, action: UserStateActions): UserState => {
@@ -44,6 +44,12 @@ const reducer = (state: UserState, action: UserStateActions): UserState => {
         },
         LOGIN: () => {
             return dummyUserData;
+        },
+        REGISTER: () => {
+            return {
+                ...dummyUserData,
+                isNew: true
+            };
         },
         LOGOUT: () => null
     };

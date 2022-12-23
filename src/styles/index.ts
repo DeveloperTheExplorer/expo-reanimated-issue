@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Typography, Colors, Spacings, ThemeManager, ButtonProps, ViewProps } from 'react-native-ui-lib';
+import { Typography, Colors, Spacings, ThemeManager, Shadows } from 'react-native-ui-lib';
 import constants from '@/resources/data/constants';
 
 export const s = StyleSheet.create({
@@ -10,7 +10,7 @@ export const s = StyleSheet.create({
     container: {
         flex: 1,
         padding: 42,
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'space-between'
     },
     alignCenter: {
@@ -55,7 +55,19 @@ Colors.loadSchemes({
         ...stateColors,
     }
 });
+Shadows.loadShadows({
+    elev2: {
+        shadowColor: "#1a1a1a",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
 
+        elevation: 5
+    }
+})
 export const font = {
     headingType: 'Nagoda',
     bodyType: 'Karla',

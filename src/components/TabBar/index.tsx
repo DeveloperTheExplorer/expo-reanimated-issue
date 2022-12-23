@@ -8,6 +8,7 @@ import styles from './styles';
 import { userStore } from '@/hooks/useSession';
 import { Avatar } from 'react-native-ui-lib';
 import NewPostFab from '../NewPostFab';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 interface IconMapType {
     [key: string]: string
@@ -19,9 +20,8 @@ interface Route {
     params?: any;
 }
 
-export default function TabBar({ state, descriptors, navigation }: any) {
+export default function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
     const { user } = useContext(userStore);
-    const focusedOptions = descriptors[state.routes[state.index].key].options;
     const currentRoute: Route = state.routes[state.index];
     const iconMapping: IconMapType = useMemo(
         () => {
@@ -35,17 +35,15 @@ export default function TabBar({ state, descriptors, navigation }: any) {
         []
     );
 
-    if (focusedOptions.tabBarVisible === false) {
-        return null;
-    }
-
     if (currentRoute.name === 'Profile' && currentRoute.params && currentRoute.params.userID) {
         return <React.Fragment />
     }
 
     return (
         <View style={styles["tabBar-container"]}>
-            <NewPostFab />
+            <NewPostFab 
+                onPress={() => navigation.navigate('NewPost')}
+            />
             {
                 state.routes.map(
                     (route: any, index: Number) => {

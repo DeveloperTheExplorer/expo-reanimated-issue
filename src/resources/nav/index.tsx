@@ -10,6 +10,7 @@ import AuthScreen from '@/screens/auth';
 import TermsScreen from '@/screens/terms';
 import { userStore } from '@/hooks/useSession';
 import OnboardingScreen from '@/screens/onboarding';
+import NewPost from '@/screens/newPost';
 
 const Stack = createNativeStackNavigator<AllScreensParamList>();
 const prefix = Linking.createURL('/', {})
@@ -23,6 +24,7 @@ const defaultScreenOptions: NativeStackNavigationOptions = {
 
 export default function Nav({ onReady }: Props) {
     const { user } = useContext(userStore);
+    const initialRouteName = user && user.isNew ? 'Tabs' : 'Onboarding';
     const introScreenOptions: NativeStackNavigationOptions = {
         ...defaultScreenOptions,
         animationTypeForReplace: !user ? 'pop' : 'push'
@@ -42,18 +44,23 @@ export default function Nav({ onReady }: Props) {
             onReady={onReady}
             linking={linking}
         >
-            <Stack.Navigator initialRouteName="Intro">
+            <Stack.Navigator initialRouteName={initialRouteName}>
                 {
                     user ? (
                         <>
+                            <Stack.Screen
+                                name="Onboarding"
+                                component={OnboardingScreen}
+                                options={defaultScreenOptions}
+                            />
                             <Stack.Screen
                                 name="Tabs"
                                 component={TabNav}
                                 options={defaultScreenOptions}
                             />
                             <Stack.Screen
-                                name="Onboarding"
-                                component={OnboardingScreen}
+                                name="NewPost"
+                                component={NewPost}
                                 options={defaultScreenOptions}
                             />
                         </>

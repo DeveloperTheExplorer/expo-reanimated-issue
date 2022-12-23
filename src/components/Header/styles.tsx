@@ -1,3 +1,4 @@
+import constants from '@/resources/data/constants';
 import { colors } from '@/styles';
 import {
     StyleSheet
@@ -12,7 +13,7 @@ export default StyleSheet.create(
             alignSelf: 'stretch',
             alignItems: 'center',
             paddingHorizontal: 32,
-            paddingTop: 8,
+            paddingTop: constants.isAndroid ? 32 : 8,
             zIndex: 99
         },
         headerText: {

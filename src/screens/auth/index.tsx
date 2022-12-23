@@ -2,12 +2,12 @@
 import React, { useContext, useEffect } from 'react';
 import { 
     Image,
-    SafeAreaView, 
-    View
+    SafeAreaView,
 } from 'react-native';
 import {
     Text,
-    Button
+    Button,
+    View
 } from 'react-native-ui-lib';
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
@@ -50,11 +50,26 @@ export default function AuthScreen({ navigation, route }: ScreenProps<'Auth'>) {
         await Linking.openURL(metamaskLoginURL);
     }
     
+    const register = async () => {
+        return dispatch(
+            {
+                type: 'REGISTER'
+            }
+        );
+        
+        const isValidURL = await Linking.canOpenURL(metamaskLoginURL);
+
+        console.log('isValidURL', isValidURL);
+        console.log('metamaskLoginURL', metamaskLoginURL);
+        
+        await Linking.openURL(metamaskLoginURL);
+    }
+    
     return (
         <SafeAreaView style={s.safeArea}>
             <View style={s.container}>
                 <StatusBar style="auto" />
-                <View>
+                <View center>
                     <Logo
                         width={83}
                         height={69}
@@ -97,7 +112,7 @@ export default function AuthScreen({ navigation, route }: ScreenProps<'Auth'>) {
                         spread
                         marginT-12
                         paddingH-32
-                        onPress={connect}
+                        onPress={register}
                     >
                         <Text bgColor bold>
                             Register with Metamask

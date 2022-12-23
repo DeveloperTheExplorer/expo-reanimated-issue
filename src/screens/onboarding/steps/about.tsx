@@ -12,8 +12,8 @@ import { AntDesign } from '@expo/vector-icons';
 import ImageSelector, { ImageFile } from '@/components/ImageSelector';
 import constants from '@/resources/data/constants';
 import { colors } from '@/styles';
-import { TextField } from 'react-native-ui-lib/src/incubator';
 import { User } from '@/types';
+import TextField from '@/components/TextField';
 
 
 interface Props {
@@ -40,14 +40,9 @@ export default function AboutStep({ userObj }: Props) {
             </Text>
             <TextField 
                 marginT-12
-                padding-12
                 bold
                 body
                 placeholder='cyrptoMaster123'
-                containerStyle={{
-                    borderWidth: 1,
-                    borderRadius: 5
-                }}
                 maxLength={15}
             />
 

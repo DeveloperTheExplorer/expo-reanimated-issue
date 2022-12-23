@@ -39,6 +39,7 @@ export type AllScreensParamList = {
     };
     Terms: undefined;
     Onboarding: undefined;
+    NewPost: undefined;
 };
 
 export type ScreenProps<T extends keyof AllScreensParamList> = CompositeScreenProps<

@@ -31,7 +31,7 @@ export default function IntroScreen({ navigation }: ScreenProps<'Intro'>) {
         <SafeAreaView style={s.safeArea}>
             <View style={s.container}>
                 <StatusBar style="auto" />
-                <View>
+                <View center>
                     <Logo 
                         width={ 83 }
                         height={ 69 }

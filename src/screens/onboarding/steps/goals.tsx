@@ -6,9 +6,9 @@ import {
     View,
     Text
 } from 'react-native-ui-lib';
-import { TextField } from 'react-native-ui-lib/src/incubator';
 
 import { colors } from '@/styles';
+import TextField from '@/components/TextField';
 
 const options = [
     'I want to make friends',
@@ -80,16 +80,11 @@ export default function GoalsStep({ }: Props) {
                     checks.includes('Other') && (
                         <TextField
                             marginT-12
-                            padding-12
                             bold
                             body
                             value={other}
                             onChangeText={handleOtherTextField}
                             placeholder='I want to...'
-                            containerStyle={{
-                                borderWidth: 1,
-                                borderRadius: 5
-                            }}
                         />
                     )
                 }
