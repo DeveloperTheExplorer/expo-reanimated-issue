@@ -5,6 +5,7 @@ import {
     Button, Colors, Image, Shadows, Text, TouchableOpacity, View
 } from 'react-native-ui-lib';
 import { StatusBar } from 'expo-status-bar';
+import { AntDesign } from '@expo/vector-icons';
 
 import { ScreenProps } from '@/types/screens';
 import Header from '@/components/Header';
@@ -14,11 +15,12 @@ import NewPostImage from '@/components/NewPost/NewPostImage';
 import { NewPostType, PollOption, PostTypes } from '@/types/activity';
 import { ImageFile } from '@/components/ImageSelector';
 import SubToggle from '@/components/NewPost/SubToggle';
+import PollOptions from '@/components/NewPost/PollOptions';
+import PortfolioChart from '@/components/Chart/PortfolioChart';
+import { usePortfolio } from '@/hooks/usePortfolio';
 
 import { s } from '@/styles';
 import styles from './styles';
-import PollOptions from '@/components/NewPost/PollOptions';
-import { AntDesign } from '@expo/vector-icons';
 
 const attatchments = [
     {
@@ -54,6 +56,10 @@ const initialPost: NewPostType = {
 
 export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
     const [post, setPost] = useState<NewPostType>(initialPost);
+    const {
+        portfolio,
+        initData
+    } = usePortfolio({});
     
     const handleTitle = (text: string) => {
         setPost(
@@ -101,6 +107,10 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
             delete newPost.collection;
             delete newPost.portfolio;
             delete newPost.options;
+        }
+
+        if (type === PostTypes.PortfolioPost) {
+            initData();
         }
 
         setPost(newPost)
@@ -193,6 +203,13 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
                                         <PollOptions 
                                             pollOptions={post.options}
                                             onChange={handlePollOptions}
+                                        />
+                                    )
+                                }
+                                {
+                                    post.type === PostTypes.PortfolioPost && (
+                                        <PortfolioChart 
+                                            chartData={portfolio.chartData}
                                         />
                                     )
                                 }

@@ -1,53 +1,31 @@
-import dayjs from 'dayjs';
 import { Text, View } from 'react-native-ui-lib';
 
-import Chart from '../Chart';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { nFormatter } from '@/resources/format';
+
+import PortfolioChart from '../Chart/PortfolioChart';
 
 interface Props {
 
 }
 
-const chartData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    prices: new Array(6).fill(0).map(() => Math.random() * 100)
-};
-
 export default function Portfolio({
 
 }: Props) {
-    const today = dayjs().format('MMMM D YYYY');
-    const currentNetWorth = chartData.prices[chartData.prices.length - 1].toFixed(2);
+    const { portfolio } = usePortfolio({
+        autoLoad: true
+    });
+    const {
+        chartData
+    } = portfolio;
 
     return (
         <View paddingV-24>
-            <Chart
-                paddingH-32
-                chartData={chartData}
-            >
-                <Text
-                    style={{
-                        fontSize: 10
-                    }}
-                >
-                    {today}
-                </Text>
-                <View>
-                    <View bg-primary paddingV-2 paddingH-4 rounded-md>
-                        <Text bgColor bodySm bold>
-                            Current Value: {currentNetWorth} ETH
-                        </Text>
-                    </View>
-                    <Text
-                        center
-                        marginT-4
-                        style={{
-                            fontSize: 10
-                        }}
-                    >
-                        Calculation based on Floor Price
-                    </Text>
-                </View>
-            </Chart>
+            <View paddingH-32>
+                <PortfolioChart 
+                    chartData={portfolio.chartData}
+                />
+            </View>
             <View marginT-24 paddingH-32>
                 <Text h4 center>
                     Performance Stats
@@ -58,7 +36,7 @@ export default function Portfolio({
                             NFTs bought
                         </Text>
                         <Text h4 primary>
-                            3.8K
+                            {portfolio && nFormatter(portfolio.nftsBought)}
                         </Text>
                     </View>
                     <View center>
@@ -66,7 +44,7 @@ export default function Portfolio({
                             Total profit
                         </Text>
                         <Text h4 primary>
-                            5.2 ETH
+                            {portfolio && nFormatter(portfolio.totalProfit)} ETH
                         </Text>
                     </View>
                     <View center>
@@ -74,7 +52,7 @@ export default function Portfolio({
                             NFTs sold
                         </Text>
                         <Text h4 primary>
-                            1.2K
+                            {portfolio && nFormatter(portfolio.nftsSold)}
                         </Text>
                     </View>
                 </View>

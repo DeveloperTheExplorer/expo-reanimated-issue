@@ -128,6 +128,13 @@ const constants = {
             !Platform.isTVOS &&
             (screenHeight >= 812 || screenWidth >= 812);
     },
+    get emptyChartData() {
+        return {
+            labels: ['loading'],
+            prices: [0]
+        }
+    },
+
     /* Orientation */
     addDimensionsEventListener: (callback: any) => {
         return Dimensions.addEventListener('change', callback);

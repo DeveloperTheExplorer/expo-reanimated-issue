@@ -121,3 +121,7 @@ export const createActivities = (count: number): Activity[] => {
         () => funcs[faker.datatype.number({ max: funcs.length - 1 })]()
     );
 }
+
+export const fakePromise = <T>(value: T, time = 500): Promise<T> => {
+    return new Promise(resolve => setTimeout(resolve, time, value));
+}

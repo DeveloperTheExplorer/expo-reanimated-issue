@@ -88,7 +88,7 @@ export default function Chart({
                     }
                 ],
             }
-        }, []
+        }, [chartData.labels[0]]
     )
 
     return (
@@ -122,22 +122,26 @@ export default function Chart({
                 <View row paddingH-6 paddingB-12 spread top>
                     { children }
                 </View>
-                <LineChart
-                    bezier
-                    data={data}
-                    width={constants.screenWidth - 84}
-                    height={200}
-                    chartConfig={chartConfig}
-                    withVerticalLines={false}
-                    withHorizontalLines={false}
-                    yLabelsOffset={-constants.screenWidth + 100}
-                    xLabelsOffset={8}
-                    style={{
-                        paddingRight: 12,
-                        paddingLeft: 0
-                    }}
-                    withDots={false}
-                />
+                {
+                    chartData.labels[0] !== 'loading' && (
+                        <LineChart
+                            bezier
+                            data={data}
+                            width={constants.screenWidth - 84}
+                            height={200}
+                            chartConfig={chartConfig}
+                            withVerticalLines={false}
+                            withHorizontalLines={false}
+                            yLabelsOffset={-constants.screenWidth + 100}
+                            xLabelsOffset={8}
+                            style={{
+                                paddingRight: 12,
+                                paddingLeft: 0
+                            }}
+                            withDots={false}
+                        />
+                    )
+                }
             </View>
         </View>
     )
