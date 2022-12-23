@@ -14,6 +14,7 @@ export default function TextField({
 
     return (
         <Incubator.TextField
+            bodySm
             padding-16={constants.isIOS}
             padding-12={constants.isAndroid}
             multiline={multiline}

@@ -1,8 +1,4 @@
-import ImageSelector, { ImageFile } from '@/components/ImageSelector';
-import { AntDesign } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
-import { Button, Image, Shadows, Switch, Text, TouchableOpacity, View } from 'react-native-ui-lib';
+import { Switch, Text, View } from 'react-native-ui-lib';
 
 interface Props {
     setExclusive: (bool: boolean) => void;
@@ -38,19 +34,3 @@ export default function SubToggle({
         </View>
     )
 };
-
-const styles = StyleSheet.create({
-    imageContainer: {
-        overflow: 'hidden',
-        borderRadius: 15,
-    },
-    removeImageBtn: {
-        position: 'absolute',
-        zIndex: 10,
-        top: 10,
-        right: 10,
-        width: 42,
-        height: 42,
-        borderRadius: 21
-    }
-})
