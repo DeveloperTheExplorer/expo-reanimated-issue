@@ -2,6 +2,8 @@
 import React from 'react';
 import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { 
+    Colors,
+    Shadows,
     Text
 } from 'react-native-ui-lib';
 import { Ionicons } from '@expo/vector-icons';
@@ -35,7 +37,11 @@ export default function Header({
             style={ 
                 [
                     styles.container,
-                    style
+                    style,
+                    !float && {
+                        backgroundColor: Colors.bgColor,
+                        ...Shadows.elev1.bottom
+                    }
                 ]
             }
         >

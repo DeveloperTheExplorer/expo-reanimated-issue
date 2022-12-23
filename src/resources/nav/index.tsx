@@ -24,7 +24,6 @@ const defaultScreenOptions: NativeStackNavigationOptions = {
 
 export default function Nav({ onReady }: Props) {
     const { user } = useContext(userStore);
-    const initialRouteName = user && user.isNew ? 'Tabs' : 'Onboarding';
     const introScreenOptions: NativeStackNavigationOptions = {
         ...defaultScreenOptions,
         animationTypeForReplace: !user ? 'pop' : 'push'
@@ -44,15 +43,19 @@ export default function Nav({ onReady }: Props) {
             onReady={onReady}
             linking={linking}
         >
-            <Stack.Navigator initialRouteName={initialRouteName}>
+            <Stack.Navigator initialRouteName='Intro'>
                 {
                     user ? (
                         <>
-                            <Stack.Screen
-                                name="Onboarding"
-                                component={OnboardingScreen}
-                                options={defaultScreenOptions}
-                            />
+                            {
+                                user.isNew && (
+                                    <Stack.Screen
+                                        name="Onboarding"
+                                        component={OnboardingScreen}
+                                        options={defaultScreenOptions}
+                                    />
+                                )   
+                            }
                             <Stack.Screen
                                 name="Tabs"
                                 component={TabNav}

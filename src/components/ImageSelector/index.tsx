@@ -19,6 +19,7 @@ export interface ImageFile extends CroppedImage {
 interface Props {
     setImage: (img: ImageFile) => void;
     aspect?: [number, number];
+    setLoader?: (bool: boolean) => void;
     quality?: number;
     children: React.ReactNode;
 }
@@ -27,12 +28,16 @@ export default function ImageSelector({
     setImage,
     aspect,
     quality,
+    setLoader,
     children
 }: Props) {
     const [localImage, setLocalImage] = useState<ImagePicker.ImagePickerAsset>();
     const [editorVisible, setEditorVisible] = useState(false);
 
     const pickImage = async () => {
+        if (setLoader) {
+            setLoader(true);
+        }
         const imagePickerOptions: ImagePicker.ImagePickerOptions = {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: aspect && constants.isAndroid,
@@ -49,6 +54,9 @@ export default function ImageSelector({
         const result = await ImagePicker.launchImageLibraryAsync(imagePickerOptions);
 
         console.log(result);
+        if (setLoader) {
+            setLoader(false);
+        }
 
         if (!result.canceled) {
             const resImage = result.assets[0];

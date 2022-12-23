@@ -56,16 +56,53 @@ Colors.loadSchemes({
     }
 });
 Shadows.loadShadows({
-    elev2: {
-        shadowColor: "#1a1a1a",
-        shadowOffset: {
-            width: 0,
-            height: 2,
+    elev1: {
+        bottom: {
+            shadowColor: "#1a1a1a",
+            shadowOffset: {
+                width: 0,
+                height: 4,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 2,
+    
+            elevation: 3
         },
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-
-        elevation: 5
+        top: {
+            shadowColor: "#1a1a1a",
+            shadowOffset: {
+                width: 0,
+                height: -4,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 3,
+    
+            elevation: 3
+        }
+    },
+    elev2: {
+        bottom: {
+            shadowColor: "#1a1a1a",
+            shadowOffset: {
+                width: 0,
+                height: 2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 5,
+    
+            elevation: 5
+        },
+        top: {
+            shadowColor: "#1a1a1a",
+            shadowOffset: {
+                width: 0,
+                height: -2,
+            },
+            shadowOpacity: 0.1,
+            shadowRadius: 5,
+    
+            elevation: 5
+        }
     }
 })
 export const font = {

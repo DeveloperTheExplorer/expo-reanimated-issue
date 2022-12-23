@@ -1,3 +1,4 @@
+import { ImageFile } from '@/components/ImageSelector';
 import { Portfolio } from '.';
 
 export interface ChartData {
@@ -62,7 +63,7 @@ export interface BasePost extends BaseActivity {
     commentsCount: number;
     likesCount: number;
     comments?: string[];
-    isLiked: boolean;
+    isLiked?: boolean;
     isExclusive?: boolean;
 }
 
@@ -89,3 +90,14 @@ export interface PollPostType extends BasePost {
 
 export type PostActivity = PostType | CollectionPostType | PortfolioPostType | PollPostType
 export type Activity = TradeType | PostActivity;
+
+export interface NewPostType {
+    title: string;
+    description: string;
+    image?: ImageFile;
+    type: PostTypes;
+    options?: PollOption[];
+    portfolio?: Portfolio;
+    collection?: Collection;
+    isExclusive?: boolean;
+}
