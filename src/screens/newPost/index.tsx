@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { Modal, SafeAreaView, ScrollView } from 'react-native';
 import {
     Button, Colors, Image, Shadows, Text, TouchableOpacity, View
 } from 'react-native-ui-lib';
@@ -18,9 +18,13 @@ import SubToggle from '@/components/NewPost/SubToggle';
 import PollOptions from '@/components/NewPost/PollOptions';
 import PortfolioChart from '@/components/Chart/PortfolioChart';
 import { usePortfolio } from '@/hooks/usePortfolio';
+import Search from '@/components/Search';
+import { createSearchResults } from '@/resources/dummy';
 
 import { s } from '@/styles';
 import styles from './styles';
+import { SearchCollectionType, SearchResult, SearchResultTypes } from '@/types/search';
+import CollectionChart from '@/components/Chart/CollectionChart';
 
 const attatchments = [
     {
@@ -56,6 +60,7 @@ const initialPost: NewPostType = {
 
 export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
     const [post, setPost] = useState<NewPostType>(initialPost);
+    const [searchModalVisible, setSearchModalVisible] = useState(false);
     const {
         portfolio,
         initData
@@ -97,6 +102,21 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
         )
     }
 
+    const handleCollection = (res: SearchResult) => {
+        console.log('res', res);
+        if (!res || res.type !== SearchResultTypes.Collection) {
+            return;
+        }
+
+        setPost(
+            prev => ({
+                ...prev,
+                collection: res
+            })
+        );
+        setSearchModalVisible(false);
+    }
+
     const handleType = (type: PostTypes) => {
         const newPost = {
             ...post,
@@ -113,6 +133,10 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
             initData();
         }
 
+        if (type === PostTypes.CollectionPost) {
+            setSearchModalVisible(true);
+        }
+
         setPost(newPost)
     }
 
@@ -123,6 +147,14 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
                 options: polls
             })
         )
+    }
+
+    const dismissSearch = () => {
+        setSearchModalVisible(false);
+        
+        if (!post.collection) {
+            handleType(PostTypes.Post)
+        }
     }
     
     return (
@@ -213,6 +245,13 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
                                         />
                                     )
                                 }
+                                {
+                                    post.type === PostTypes.CollectionPost && (
+                                        <CollectionChart 
+                                            collection={post.collection!}
+                                        />
+                                    )
+                                }
                             </View>
                         )
                     }
@@ -256,6 +295,42 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
                     </View>
                 </ScrollView>
 
+                <Modal
+                    visible={searchModalVisible}
+                    presentationStyle='pageSheet'
+                    animationType='slide'
+                >
+                    <View paddingH-16>
+                        <View row spread marginV-16 centerV>
+                            <TouchableOpacity
+                                center
+                                onPress={dismissSearch}
+                            >
+                                <AntDesign
+                                    name="close"
+                                    size={32}
+                                    color="black"
+                                />
+                            </TouchableOpacity>
+                            <Text h5>
+                                Share NFT Collection
+                            </Text>
+                            <View>
+                                <AntDesign
+                                    name="close"
+                                    size={32}
+                                    color="transparent"
+                                />
+                            </View>
+                        </View>
+                        <Search
+                            setResult={handleCollection}
+                            searchFunc={createSearchResults}
+                            placeholder='Search for NFT Collection'
+                        />
+                    </View>
+                </Modal>
+
                 <View 
                     absH 
                     absB 
@@ -272,6 +347,7 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
                     />
                     <Button 
                         label='Post'
+                        disabled={!post.title || !post.description}
                     />
                 </View>
             </View>

@@ -1,6 +1,20 @@
 import { faker } from '@faker-js/faker';
 
-import { Activity, Author, BasePost, ChartData, CollectionPostType, PollOption, PollPostType, PortfolioPostType, PostType, PostTypes, TradeType, TradeTypes } from '@/types/activity';
+import { Activity, Author, BasePost, ChartData, Collection, CollectionPostType, PollOption, PollPostType, PortfolioPostType, PostType, PostTypes, TradeType, TradeTypes } from '@/types/activity';
+import { SearchCollectionType, SearchProfileType, SearchResult, SearchResultTypes } from '@/types/search';
+import { User } from '@/types';
+
+export const createUser = (): User => {
+
+    return {
+        id: faker.random.alphaNumeric(8),
+        username: faker.internet.userName().substring(0, 15),
+        bio: faker.hacker.phrase(),
+        walletAddress: `0x${faker.random.alphaNumeric(40)}`,
+        avatar: faker.internet.avatar(),
+        banner: faker.image.abstract(1000, 500)
+    }
+}
 
 export const createTrade = (): TradeType => {
 
@@ -63,18 +77,23 @@ export const createAuthor = (): Author => {
     }
 }
 
+export const createCollection = (): Collection => {
+    
+    return {
+        name: faker.random.word(),
+        openseaSlug: faker.random.words().toLowerCase().replaceAll(' ', '-'),
+        address: '0x' + faker.random.alphaNumeric(40),
+        image: faker.image.abstract(256, 256),
+        chartData: createChartData()
+    }
+}
+
 export const createCollectionPost = (): CollectionPostType => {
 
     return {
         ...createBasePost(),
         type: PostTypes.CollectionPost,
-        collection: {
-            name: faker.random.word(),
-            openseaSlug: faker.random.words().toLowerCase().replaceAll(' ', '-'),
-            address: '0x' + faker.random.alphaNumeric(40),
-            image: faker.image.abstract(256, 256),
-            chartData: createChartData()
-        },
+        collection: createCollection(),
     }
 }
 
@@ -124,4 +143,25 @@ export const createActivities = (count: number): Activity[] => {
 
 export const fakePromise = <T>(value: T, time = 500): Promise<T> => {
     return new Promise(resolve => setTimeout(resolve, time, value));
+}
+
+export const createSearchResults = async (): Promise<SearchResult[]> => {
+    const options = [createCollection, createUser];
+
+    return new Array(5).fill({}).map(
+        () => {
+            const rand = Math.round(Math.random());
+            const res = options[rand]();
+
+            if (res.id) {
+                res.type = SearchResultTypes.Profile;
+
+                return res as SearchProfileType;
+            }
+
+            res.type = SearchResultTypes.Collection;
+
+            return res as SearchCollectionType;
+        }
+    );
 }

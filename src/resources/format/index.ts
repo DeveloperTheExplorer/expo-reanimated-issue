@@ -70,3 +70,7 @@ export const countText = (text: string, number: number) => {
 
     return text + 's';
 }
+
+export const getToday = () => {
+    return dayjs().format('MMMM D YYYY');
+}
