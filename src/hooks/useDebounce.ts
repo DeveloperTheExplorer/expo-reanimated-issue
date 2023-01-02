@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
  * 
@@ -7,15 +7,25 @@ import { useEffect } from 'react'
  * @param timeout Time for the debounce
  */
 export const useDebounce = (func: any, params: any[], timeout: number) => {
+    const [loading, setLoading] = useState(false);
 
     useEffect(
         () => {
+            setLoading(true);
+
             const debounceCall = setTimeout(
-                () => func(...params),
+                () => {
+                    func(...params);
+                    setLoading(false);
+                },
                 timeout
             );
 
-            return () => clearTimeout(debounceCall);
+            return () => {
+                clearTimeout(debounceCall);
+            }
         }, params
-    )
+    );
+
+    return loading;
 }

@@ -246,9 +246,9 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
                                     )
                                 }
                                 {
-                                    post.type === PostTypes.CollectionPost && (
+                                    post.type === PostTypes.CollectionPost && post.collection && (
                                         <CollectionChart 
-                                            collection={post.collection!}
+                                            collection={post.collection}
                                         />
                                     )
                                 }
@@ -300,35 +300,39 @@ export default function NewPost({ navigation }: ScreenProps<'NewPost'>) {
                     presentationStyle='pageSheet'
                     animationType='slide'
                 >
-                    <View paddingH-16>
-                        <View row spread marginV-16 centerV>
-                            <TouchableOpacity
-                                center
-                                onPress={dismissSearch}
-                            >
-                                <AntDesign
-                                    name="close"
-                                    size={32}
-                                    color="black"
-                                />
-                            </TouchableOpacity>
-                            <Text h5>
-                                Share NFT Collection
-                            </Text>
-                            <View>
-                                <AntDesign
-                                    name="close"
-                                    size={32}
-                                    color="transparent"
-                                />
+                    <SafeAreaView
+                        style={s.safeArea}
+                    >
+                        <View paddingH-16>
+                            <View row spread marginV-16 centerV>
+                                <TouchableOpacity
+                                    center
+                                    onPress={dismissSearch}
+                                >
+                                    <AntDesign
+                                        name="close"
+                                        size={32}
+                                        color="black"
+                                    />
+                                </TouchableOpacity>
+                                <Text h5>
+                                    Share NFT Collection
+                                </Text>
+                                <View>
+                                    <AntDesign
+                                        name="close"
+                                        size={32}
+                                        color="transparent"
+                                    />
+                                </View>
                             </View>
+                            <Search
+                                setResult={handleCollection}
+                                searchFunc={() => createSearchResults(15)}
+                                placeholder='Search for NFT Collection'
+                            />
                         </View>
-                        <Search
-                            setResult={handleCollection}
-                            searchFunc={createSearchResults}
-                            placeholder='Search for NFT Collection'
-                        />
-                    </View>
+                    </SafeAreaView>
                 </Modal>
 
                 <View 

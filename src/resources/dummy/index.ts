@@ -145,10 +145,10 @@ export const fakePromise = <T>(value: T, time = 500): Promise<T> => {
     return new Promise(resolve => setTimeout(resolve, time, value));
 }
 
-export const createSearchResults = async (): Promise<SearchResult[]> => {
+export const createSearchResults = async (len = 5): Promise<SearchResult[]> => {
     const options = [createCollection, createUser];
 
-    return new Array(5).fill({}).map(
+    return new Array(len).fill({}).map(
         () => {
             const rand = Math.round(Math.random());
             const res = options[rand]();

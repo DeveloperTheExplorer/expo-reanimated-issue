@@ -29,7 +29,7 @@ export default function SearchCollection({
             row
             padding-16
             bg-grey70
-            marginT-16
+            marginB-16
             style={{
                 borderRadius: 10
             }}

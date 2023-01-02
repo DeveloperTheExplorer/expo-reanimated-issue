@@ -1,12 +1,15 @@
+import { useState } from 'react';
+import { ScrollView } from 'react-native';
+import { Incubator, Shadows, Text, TouchableOpacity, View } from 'react-native-ui-lib';
+
 import { useDebounce } from '@/hooks/useDebounce';
 import { User } from '@/types';
 import { Collection } from '@/types/activity';
 import { SearchResult, SearchResultTypes } from '@/types/search';
 import { Feather } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
-import { Incubator, Shadows, Text, TouchableOpacity, View } from 'react-native-ui-lib';
 import SearchCollection from '../SearchCollection';
 import SearchProfile from '../SearchProfile';
+import constants from '@/resources/data/constants';
 
 
 interface Props {
@@ -44,10 +47,12 @@ export default function Search({
         }
     }
 
-    useDebounce(search, [searchText], 1500);
+    const debounceLoading = useDebounce(search, [searchText], 1500);
     
     return (
-        <View>
+        <View
+            flexS
+        >
             <View
                 row
                 spread
@@ -81,8 +86,8 @@ export default function Search({
                 />
             </View>
             {
-                searchText.length >= 3 &&  !isLoading && searchResults.length === 0 && (
-                    <View>
+                searchText.length >= 3 && !isLoading && !debounceLoading && searchResults.length === 0 && (
+                    <View marginT-16>
                         <Text h5>
                             No Results Found.
                         </Text>
@@ -91,35 +96,49 @@ export default function Search({
             }
             {
                 searchText.length >= 3 &&  !isLoading && searchResults.length > 0 && (
-                    <View>
-                        <Text h6 marginT-16>
+                    <View 
+                        flexS
+                        style={{
+                            height: constants.screenHeight - 225,
+                        }}
+                    >
+                        <Text h6 marginT-32>
                             Search Results: 
                         </Text>
-                        {
-                            searchResults.map(
-                                (res) => {
-                                    if (res.type === SearchResultTypes.Profile) {
-                                        return (
-                                            <SearchProfile
-                                                key={res.id}
-                                                profile={res}
-                                                onPress={() => setResult(res)}
-                                            />
-                                        )
-                                    }
+                        <ScrollView
+                            style={{
+                                marginTop: 12
+                            }}
+                            contentContainerStyle={{
+                                paddingBottom: 100
+                            }}
+                        >
+                            {
+                                searchResults.map(
+                                    (res) => {
+                                        if (res.type === SearchResultTypes.Profile) {
+                                            return (
+                                                <SearchProfile
+                                                    key={res.id}
+                                                    profile={res}
+                                                    onPress={() => setResult(res)}
+                                                />
+                                            )
+                                        }
 
-                                    if (res.type === SearchResultTypes.Collection) {
-                                        return (
-                                            <SearchCollection
-                                                key={res.address}
-                                                collection={res}
-                                                onPress={() => setResult(res)}
-                                            />
-                                        )
+                                        if (res.type === SearchResultTypes.Collection) {
+                                            return (
+                                                <SearchCollection
+                                                    key={res.address}
+                                                    collection={res}
+                                                    onPress={() => setResult(res)}
+                                                />
+                                            )
+                                        }
                                     }
-                                }
-                            )
-                        }
+                                )
+                            }
+                        </ScrollView>
                     </View>
                 )
             }
